@@ -1,12 +1,236 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="output.css">
+    <title>THINKARA | Asah Kritis, Mandiri Tanpa AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+        html { 
+            scroll-behavior: smooth; 
+            scroll-padding-top: 5.5rem; /* Menyesuaikan tinggi navbar */
+        }
+    </style>
 </head>
-<body>
-    
+<body class="bg-slate-50 text-slate-800">
+
+    <nav class="fixed top-0 left-0 w-full bg-white/90 backdrop-blur-md shadow-sm z-50 h-[5.5rem] flex items-center">
+        <div class="max-w-7xl w-full mx-auto px-6 flex justify-between items-center">
+            <span class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-pink-500">THINKARA.</span>
+            
+            <div class="hidden md:flex items-center space-x-6 font-semibold text-slate-700">
+                <a href="#home" class="hover:text-indigo-600 transition-colors">Beranda</a>
+                <a href="#about" class="hover:text-indigo-600 transition-colors">Tentang</a>
+                <a href="#team" class="hover:text-indigo-600 transition-colors">Tim</a>
+                <a href="#ask" class="hover:text-indigo-600 transition-colors">Tanya</a>
+                <div class="border-l border-slate-300 h-6 mx-2"></div>
+                <a href="#signup" class="text-slate-500 hover:text-indigo-600 transition-colors px-2">Daftar</a>
+                <a href="#login" class="bg-indigo-600 text-white px-7 py-2.5 rounded-full hover:bg-indigo-700 transition-all shadow-md font-bold">Masuk</a>
+            </div>
+
+            <button id="mobileMenuBtn" class="md:hidden text-indigo-600 focus:outline-none p-2 rounded-lg hover:bg-indigo-50">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+        
+        <div id="mobileMenu" class="md:hidden bg-white shadow-xl absolute top-[5.5rem] w-full left-0 border-t border-slate-100 hidden transition-all">
+            <div class="flex flex-col px-6 py-4 space-y-4 font-semibold text-slate-700">
+                <a href="#home" class="block py-2 hover:text-indigo-600">Beranda</a>
+                <a href="#about" class="block py-2 hover:text-indigo-600">Tentang</a>
+                <a href="#team" class="block py-2 hover:text-indigo-600">Tim</a>
+                <a href="#ask" class="block py-2 hover:text-indigo-600">Tanya</a>
+                <div class="border-t border-slate-200 my-2 pt-4 flex flex-col space-y-3">
+                    <a href="#signup" class="text-center text-slate-500 py-2 border border-slate-200 rounded-xl hover:bg-slate-50">Daftar</a>
+                    <a href="#login" class="bg-indigo-600 text-white text-center py-2.5 rounded-xl hover:bg-indigo-700 shadow-md font-bold">Masuk</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="relative overflow-hidden bg-gradient-to-br from-indigo-700 via-purple-700 to-pink-600 text-white min-h-screen flex items-center pt-20">
+        <div class="max-w-7xl mx-auto px-6 relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center w-full">
+            <div class="text-center lg:text-left">
+                <h1 class="text-5xl lg:text-7xl font-bold mb-6 leading-tight">Berhenti Menyalin,<br><span class="text-white/80">Mulai Memahami.</span></h1>
+                <p class="text-lg lg:text-xl font-light mb-10 max-w-2xl mx-auto lg:mx-0 opacity-90 leading-relaxed">Kembangkan kemampuan berpikir kritis dan jangan biarkan AI mengambil alih logikamu. Otakmu lebih hebat dari algoritma manapun.</p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                    <a href="#about" class="bg-white text-indigo-700 font-bold py-4 px-8 rounded-full shadow-lg hover:shadow-2xl hover:bg-slate-50 transition transform hover:-translate-y-1 text-center">Mulai Perubahan</a>
+                    <a href="#ask" class="border-2 border-white/50 text-white py-4 px-8 rounded-full font-semibold hover:border-white hover:bg-white/10 transition text-center">Tanya Kami</a>
+                </div>
+            </div>
+            <div class="hidden lg:block">
+                <img src="https://images.unsplash.com/photo-1550592704-6c76defa99ce?auto=format&fit=crop&q=80&w=800" alt="Brain and Technology" class="rounded-3xl shadow-2xl transform rotate-3 hover:rotate-0 transition duration-500">
+            </div>
+        </div>
+        <div class="absolute inset-0 bg-white/5 opacity-50 backdrop-blur-3xl skew-y-6 transform -translate-y-1/2"></div>
+    </section>
+
+    <section id="about" class="bg-white min-h-screen flex items-center py-20">
+        <div class="max-w-7xl mx-auto px-6 w-full">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-slate-800 mb-4">Mengapa Berpikir Kritis?</h2>
+                <div class="w-24 h-1.5 bg-indigo-500 mx-auto rounded-full"></div>
+                <p class="mt-6 text-lg text-slate-600 max-w-2xl mx-auto">Kunci sukses di era digital bukanlah akses ke informasi, melainkan cara memprosesnya.</p>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="lg:order-2 rounded-3xl overflow-hidden shadow-xl">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=800" alt="Students studying together" class="w-full h-auto object-cover hover:scale-105 transition duration-700">
+                </div>
+                <div class="space-y-6 lg:order-1 text-slate-700">
+                    <p class="text-lg leading-relaxed">
+                        Di era di mana AI bisa menjawab hampir segalanya, kemampuan untuk <strong>menganalisis, mengevaluasi, dan memecahkan masalah</strong> secara mandiri menjadi sangat mahal. Ketergantungan berlebihan pada AI membuat thinkara menjadi tumpul.
+                    </p>
+                    <div class="bg-slate-50 p-6 rounded-2xl border border-slate-100 shadow-sm">
+                        <ul class="space-y-4 font-semibold text-slate-700">
+                            <li class="flex items-center gap-4"><span class="w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center font-bold shrink-0">1</span> Meningkatkan Logika Pemecahan Masalah</li>
+                            <li class="flex items-center gap-4"><span class="w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center font-bold shrink-0">2</span> Mencegah Plagiarisme Otomatis</li>
+                            <li class="flex items-center gap-4"><span class="w-8 h-8 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center font-bold shrink-0">3</span> Membangun Karakter Akademik yang Jujur</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="team" class="bg-slate-50 min-h-screen flex items-center py-20">
+        <div class="max-w-7xl mx-auto px-6 w-full">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-slate-800 mb-4">Inisiator Kami</h2>
+                <div class="w-24 h-1.5 bg-pink-500 mx-auto rounded-full"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <div class="bg-white rounded-3xl p-8 text-center shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 group border border-slate-100">
+                    <div class="relative w-32 h-32 mx-auto mb-6">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Budi" alt="Budi Santoso" class="w-full h-full rounded-full bg-indigo-50 p-2 group-hover:scale-110 transition duration-300 border-4 border-indigo-100">
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-800">AXEL</h3>
+                    <p class="text-indigo-600 font-semibold mb-4 text-sm uppercase tracking-wide">Lead Programmer</p>
+                </div>
+                <div class="bg-white rounded-3xl p-8 text-center shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 group border border-slate-100">
+                    <div class="relative w-32 h-32 mx-auto mb-6">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Reza" alt="Siti Rahma" class="w-full h-full rounded-full bg-purple-50 p-2 group-hover:scale-110 transition duration-300 border-4 border-purple-100">
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-800">JEFF</h3>
+                    <p class="text-purple-600 font-semibold mb-4 text-sm uppercase tracking-wide">UI/UX Designer</p>
+                </div>
+                <div class="bg-white rounded-3xl p-8 text-center shadow-lg hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 group border border-slate-100">
+                    <div class="relative w-32 h-32 mx-auto mb-6">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Siti" alt="Reza Pratama" class="w-full h-full rounded-full bg-pink-50 p-2 group-hover:scale-110 transition duration-300 border-4 border-pink-100">
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-800">NAJWA</h3>
+                    <p class="text-pink-600 font-semibold mb-4 text-sm uppercase tracking-wide">Content Researcher</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="ask" class="bg-white min-h-screen flex items-center py-20 relative">
+        <div class="max-w-3xl mx-auto px-6 relative z-10 w-full">
+            <div class="bg-slate-900 rounded-3xl p-8 md:p-14 shadow-2xl overflow-hidden relative">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-indigo-500 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
+                <div class="absolute bottom-0 left-0 w-64 h-64 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
+                
+                <div class="text-center mb-10 relative z-10">
+                    <h2 class="text-4xl font-bold text-white mb-4">Punya Pertanyaan?</h2>
+                    <p class="text-slate-300">Tanyakan apa saja seputar platform Thinkara atau kendala yang kamu hadapi.</p>
+                </div>
+                
+                <form id="askForm" class="space-y-6 relative z-10">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="name" class="block text-sm font-semibold text-slate-300 mb-2">Nama Lengkap</label>
+                            <input type="text" id="name" required class="w-full px-5 py-3.5 rounded-xl border border-slate-700 bg-slate-800 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all placeholder-slate-500" placeholder="Masukkan nama kamu">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-semibold text-slate-300 mb-2">Email</label>
+                            <input type="email" id="email" required class="w-full px-5 py-3.5 rounded-xl border border-slate-700 bg-slate-800 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all placeholder-slate-500" placeholder="nama@email.com">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="question" class="block text-sm font-semibold text-slate-300 mb-2">Pertanyaan Anda</label>
+                        <textarea id="question" rows="4" required class="w-full px-5 py-3.5 rounded-xl border border-slate-700 bg-slate-800 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all placeholder-slate-500" placeholder="Tuliskan pertanyaanmu di sini..."></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-gradient-to-r from-indigo-500 to-pink-500 text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-indigo-500/25 transform hover:-translate-y-1 transition-all duration-300 text-lg">Kirim Pertanyaan</button>
+                    
+                    <div id="formSuccess" class="hidden bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 p-4 rounded-xl text-center font-semibold text-sm mt-4">
+                        Pertanyaan berhasil dikirim! Tim kami akan membalas ke email Anda.
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-slate-950 text-slate-300 py-16 relative overflow-hidden">
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl -translate-y-1/2"></div>
+        <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-pink-600/10 rounded-full blur-3xl translate-y-1/2"></div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10 grid grid-cols-1 md:grid-cols-4 gap-12 mb-12 border-b border-slate-800 pb-12">
+            <div class="md:col-span-2">
+                <span class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-pink-400 block mb-6">Thinkara.</span>
+                <p class="text-slate-400 max-w-sm leading-relaxed mb-6">Platform untuk mengasah logika dan mencegah ketergantungan pada AI. Kendalikan teknologi, jangan biarkan ia mengendalikanmu.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-indigo-500 hover:text-white transition-all">IG</a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-indigo-500 hover:text-white transition-all">TW</a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-indigo-500 hover:text-white transition-all">IN</a>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="text-white font-bold mb-6">Tautan Cepat</h4>
+                <ul class="space-y-3 text-sm">
+                    <li><a href="#home" class="hover:text-indigo-400 transition-colors">Beranda</a></li>
+                    <li><a href="#about" class="hover:text-indigo-400 transition-colors">Tentang Kami</a></li>
+                    <li><a href="#team" class="hover:text-indigo-400 transition-colors">Tim Pengembang</a></li>
+                    <li><a href="#ask" class="hover:text-indigo-400 transition-colors">Bantuan & FAQ</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-white font-bold mb-6">Newsletter</h4>
+                <p class="text-sm text-slate-400 mb-4">Dapatkan update tips berpikir kritis mingguan.</p>
+                <div class="flex">
+                    <input type="email" placeholder="Email kamu" class="w-full px-4 py-2 bg-slate-800 border border-slate-700 rounded-l-lg focus:outline-none focus:border-indigo-500 text-sm">
+                    <button class="bg-indigo-600 px-4 py-2 rounded-r-lg hover:bg-indigo-700 transition-colors text-white font-semibold text-sm">Kirim</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10 flex flex-col md:flex-row justify-between items-center text-sm text-slate-500">
+            <p>&copy; 2026 Thinkara Project. Hak Cipta Dilindungi.</p>
+            <div class="flex space-x-4 mt-4 md:mt-0">
+                <a href="#" class="hover:text-slate-300">Syarat & Ketentuan</a>
+                <a href="#" class="hover:text-slate-300">Kebijakan Privasi</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('askForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const successMsg = document.getElementById('formSuccess');
+            successMsg.classList.remove('hidden');
+            this.reset();
+            setTimeout(() => {
+                successMsg.classList.add('hidden');
+            }, 5000);
+        });
+
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+    </script>
 </body>
 </html>
