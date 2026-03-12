@@ -26,7 +26,12 @@ const cards = document.querySelectorAll('.ProfilTim');
 
 cards.forEach(card => {
     card.addEventListener('click', () => {
-
+        cards.forEach(otherCard => {
+            if (otherCard !== card) {
+                otherCard.querySelector('.detailTim').classList.add('hidden');
+            }
+        });
+        
         const detail = card.querySelector('.detailTim');
         detail.classList.toggle('hidden');
     });
