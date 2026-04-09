@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masuk / Daftar | THINKARA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 flex min-h-screen">
+
+    <div class="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-indigo-700 via-purple-700 to-pink-600 relative overflow-hidden items-center justify-center p-12">
+        <div class="absolute top-0 left-0 w-full h-full bg-white/5 opacity-50 backdrop-blur-3xl skew-y-6 transform -translate-y-1/2"></div>
+        <div class="absolute bottom-10 left-10 w-72 h-72 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-40"></div>
+        
+        <div class="relative z-10 text-white max-w-lg">
+            <span class="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-white/70 tracking-tight block mb-6">THINKARA.</span>
+            <h1 class="text-4xl font-bold mb-4 leading-tight">Selamat Datang Kembali!</h1>
+            <p class="text-lg font-light opacity-90 leading-relaxed mb-8">Lanjutkan perjalananmu mengasah logika dan bangun argumen yang tak terpatahkan hari ini.</p>
+            
+            <div class="flex items-center gap-4 bg-white/10 p-5 rounded-2xl backdrop-blur-sm border border-white/20">
+                <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center shrink-0">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                </div>
+                <div>
+                    <h4 class="font-bold">Mode Latihan Tersedia</h4>
+                    <p class="text-sm text-white/80">Argument Builder, Fallacy Finder & lainnya.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-full lg:w-1/2 flex flex-col justify-center items-center p-6 sm:p-12 relative">
+        
+        <a href="index.html" class="absolute top-8 left-8 flex items-center text-slate-500 hover:text-indigo-600 font-semibold transition-colors">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+            Kembali
+        </a>
+
+        <div class="w-full max-w-md bg-white p-8 sm:p-10 rounded-3xl shadow-xl border border-slate-100 relative z-10">
+            
+            <div class="text-center mb-8">
+                <span class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-pink-500 lg:hidden block mb-4">THINKARA.</span>
+                <h2 id="formTitle" class="text-3xl font-bold text-slate-800 mb-2">Masuk Akun</h2>
+                <p id="formSubtitle" class="text-slate-500">Silakan masukkan detail akun Anda.</p>
+            </div>
+
+            <form id="loginForm" class="space-y-5 block">
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-2">Email</label>
+                    <input type="email" required class="w-full px-5 py-3.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all placeholder-slate-400" placeholder="nama@email.com">
+                </div>
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <label class="block text-sm font-semibold text-slate-700">Password</label>
+                        <a href="#" class="text-sm text-indigo-600 hover:text-indigo-700 font-semibold">Lupa Password?</a>
+                    </div>
+                    <input type="password" required class="w-full px-5 py-3.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all placeholder-slate-400" placeholder="••••••••">
+                </div>
+                <a href="dashboard.html">
+                    <button  class="w-full bg-indigo-600 text-white font-bold py-3.5 rounded-xl shadow-md hover:bg-indigo-700 hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300 mt-4">
+                       <a href="dashboard.html">Masuk
+                    </button></a>
+                </a>
+                <div class="text-center mt-6">
+                    <p class="text-slate-500 text-sm">Belum punya akun? 
+                        <a href="#" onclick="toggleForm('signup')" class="text-indigo-600 font-bold hover:underline">Daftar sekarang</a>
+                    </p>
+                </div>
+            </form>
+
+            <form id="signupForm" class="space-y-5 hidden">
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-2">Nama Lengkap</label>
+                    <input type="text" required class="w-full px-5 py-3.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all placeholder-slate-400" placeholder="Masukkan nama kamu">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-2">Email</label>
+                    <input type="email" required class="w-full px-5 py-3.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all placeholder-slate-400" placeholder="nama@email.com">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold text-slate-700 mb-2">Password</label>
+                    <input type="password" required class="w-full px-5 py-3.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all placeholder-slate-400" placeholder="Buat password kuat">
+                </div>
+                <button type="submit" class="w-full bg-gradient-to-r from-indigo-500 to-pink-500 text-white font-bold py-3.5 rounded-xl shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-300 mt-4">
+                    Buat Akun
+                </button>
+                <div class="text-center mt-6">
+                    <p class="text-slate-500 text-sm">Sudah punya akun? 
+                        <a href="#" onclick="toggleForm('login')" class="text-indigo-600 font-bold hover:underline">Masuk di sini</a>
+                    </p>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+    <script>
+        function toggleForm(type) {
+            const loginForm = document.getElementById('loginForm');
+            const signupForm = document.getElementById('signupForm');
+            const formTitle = document.getElementById('formTitle');
+            const formSubtitle = document.getElementById('formSubtitle');
+
+            if (type === 'signup') {
+                loginForm.classList.add('hidden');
+                signupForm.classList.remove('hidden');
+                formTitle.innerText = "Buat Akun Baru";
+                formSubtitle.innerText = "Mulai perjalanan kritis Anda sekarang.";
+            } else {
+                signupForm.classList.add('hidden');
+                loginForm.classList.remove('hidden');
+                formTitle.innerText = "Masuk Akun";
+                formSubtitle.innerText = "Silakan masukkan detail akun Anda.";
+            }
+        }
+    </script>
+</body>
+</html>

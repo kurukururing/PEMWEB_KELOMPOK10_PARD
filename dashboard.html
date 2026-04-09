@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Pro | THINKARA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+        /* Custom scrollbar untuk area konten utama */
+        .custom-scroll::-webkit-scrollbar { width: 6px; }
+        .custom-scroll::-webkit-scrollbar-track { background: transparent; }
+        .custom-scroll::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 20px; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 h-screen flex overflow-hidden">
+
+    <aside class="w-72 bg-white border-r border-slate-200  flex-col justify-between hidden md:flex z-20 shadow-sm">
+        <div>
+            <div class="h-24 flex items-center px-8 border-b border-slate-100">
+                <span class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-pink-500 tracking-tight">THINKARA.</span>
+            </div>
+            
+            <nav class="p-6 space-y-2">
+                <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4 px-2">Menu Utama</p>
+                <a href="#" class="flex items-center space-x-3 bg-indigo-50 text-indigo-700 px-4 py-3 rounded-xl font-semibold transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 text-slate-500 hover:bg-slate-50 hover:text-slate-700 px-4 py-3 rounded-xl font-medium transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                    <span>Arena Latihan</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 text-slate-500 hover:bg-slate-50 hover:text-slate-700 px-4 py-3 rounded-xl font-medium transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                    <span>Papan Peringkat</span>
+                </a>
+                <a href="#" class="flex items-center space-x-3 text-slate-500 hover:bg-slate-50 hover:text-slate-700 px-4 py-3 rounded-xl font-medium transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+                    <span>Pengaturan</span>
+                </a>
+            </nav>
+        </div>
+
+        <div class="p-6 border-t border-slate-100">
+            <div class="flex items-center space-x-3">
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Axel" alt="Avatar" class="w-12 h-12 rounded-full bg-slate-100 border-2 border-indigo-100">
+                <div>
+                    <p class="text-sm font-bold text-slate-800">Axel Dev</p>
+                    <p class="text-xs text-slate-500">Pemikir Pemula</p>
+                </div>
+            </div>
+            <a href="index.html">
+                <button class="w-full mt-4 flex justify-center items-center space-x-2 text-sm text-slate-500 hover:text-red-500 transition-colors font-semibold border border-slate-200 py-2 rounded-lg hover:border-red-200 hover:bg-red-50">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                    <span>Keluar</span>
+                </button>
+            </a>
+        </div>
+    </aside>
+
+    <main class="flex-1 flex flex-col h-screen overflow-hidden relative">
+        
+        <header class="h-24 bg-white/80 backdrop-blur-md border-b border-slate-200 flex items-center justify-between px-8 z-10 shrink-0">
+            <div>
+                <h1 class="text-2xl font-bold text-slate-800">Ikhtisar Belajar</h1>
+                <p class="text-sm text-slate-500 font-medium">Pantau progres logika dan argumenmu hari ini.</p>
+            </div>
+            
+            <div class="flex items-center space-x-5">
+                <div class="flex items-center space-x-2 bg-gradient-to-r from-orange-50 to-red-50 px-4 py-2.5 rounded-xl border border-orange-100 shadow-sm">
+                    <svg class="w-5 h-5 text-orange-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z" clip-rule="evenodd"></path></svg>
+                    <span class="font-bold text-orange-600 text-sm">3 Hari Aktif</span>
+                </div>
+                <button class="relative p-2 bg-white border border-slate-200 rounded-xl text-slate-400 hover:text-indigo-600 hover:border-indigo-200 transition-all shadow-sm">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+                    <span class="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-pink-500 rounded-full border-2 border-white"></span>
+                </button>
+            </div>
+        </header>
+
+        <div class="flex-1 overflow-y-auto custom-scroll p-8 bg-slate-50/50">
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-center space-x-4">
+                    <div class="w-14 h-14 rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-600">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium text-slate-500">Level Saat Ini</p>
+                        <div class="flex items-baseline space-x-2">
+                            <h3 class="text-2xl font-bold text-slate-800">1</h3>
+                            <span class="text-xs font-semibold text-indigo-500">150/500 XP</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-center space-x-4">
+                    <div class="w-14 h-14 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium text-slate-500">Akurasi Jawaban</p>
+                        <div class="flex items-baseline space-x-2">
+                            <h3 class="text-2xl font-bold text-slate-800">85%</h3>
+                            <span class="text-xs font-semibold text-emerald-500">+5% mgg ini</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-center space-x-4">
+                    <div class="w-14 h-14 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium text-slate-500">Modul Selesai</p>
+                        <h3 class="text-2xl font-bold text-slate-800">12</h3>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex items-center space-x-4">
+                    <div class="w-14 h-14 rounded-xl bg-purple-50 flex items-center justify-center text-purple-600">
+                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"></path></svg>
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium text-slate-500">Rata-rata WPM</p>
+                        <h3 class="text-2xl font-bold text-slate-800">45 <span class="text-sm font-medium text-slate-400">wpm</span></h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                
+                <div class="lg:col-span-2 space-y-6">
+                    <h2 class="text-lg font-bold text-slate-800 border-b border-slate-200 pb-2">Lanjutkan Latihanmu</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden hover:shadow-md transition-shadow group">
+                            <div class="h-2 bg-indigo-500 w-full relative">
+                                <div class="absolute top-0 left-0 h-full bg-indigo-400 w-1/3"></div> </div>
+                            <div class="p-6">
+                                <div class="flex justify-between items-start mb-4">
+                                    <div class="p-3 bg-indigo-50 rounded-xl text-indigo-600 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                                    </div>
+                                    <span class="text-xs font-bold bg-slate-100 text-slate-500 px-3 py-1 rounded-full">Tahap 4/10</span>
+                                </div>
+                                <h3 class="text-lg font-bold text-slate-800 mb-1">Argument Builder</h3>
+                                <p class="text-sm text-slate-500 mb-6">Materi: Membedakan Premis Mayor & Minor.</p>
+                                <button class="w-full bg-indigo-50 text-indigo-700 font-semibold py-2.5 rounded-xl border border-indigo-100 hover:bg-indigo-600 hover:text-white transition-colors text-sm">Lanjutkan Stage 4</button>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden hover:shadow-md transition-shadow group">
+                            <div class="h-2 bg-pink-50 w-full relative">
+                                <div class="absolute top-0 left-0 h-full bg-pink-500 w-[15%]"></div>
+                            </div>
+                            <div class="p-6">
+                                <div class="flex justify-between items-start mb-4">
+                                    <div class="p-3 bg-pink-50 rounded-xl text-pink-600 group-hover:bg-pink-600 group-hover:text-white transition-colors">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"></path></svg>
+                                    </div>
+                                    <span class="text-xs font-bold bg-slate-100 text-slate-500 px-3 py-1 rounded-full">Baru Mulai</span>
+                                </div>
+                                <h3 class="text-lg font-bold text-slate-800 mb-1">Fix The Argument</h3>
+                                <p class="text-sm text-slate-500 mb-6">Materi: Menambal Argumen Rumpang (Esai Topik Sosial).</p>
+                                <button class="w-full bg-pink-50 text-pink-700 font-semibold py-2.5 rounded-xl border border-pink-100 hover:bg-pink-600 hover:text-white transition-colors text-sm">Mulai Sesi</button>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden hover:shadow-md transition-shadow group">
+                            <div class="h-2 bg-red-100 w-full relative">
+                                <div class="absolute top-0 left-0 h-full bg-red-500 w-[60%]"></div>
+                            </div>
+                            <div class="p-6">
+                                <div class="flex justify-between items-start mb-4">
+                                    <div class="p-3 bg-red-50 rounded-xl text-red-600 group-hover:bg-red-600 group-hover:text-white transition-colors">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                                    </div>
+                                    <span class="text-xs font-bold bg-slate-100 text-slate-500 px-3 py-1 rounded-full">Tahap 6/10</span>
+                                </div>
+                                <h3 class="text-lg font-bold text-slate-800 mb-1">Fallacy Finder</h3>
+                                <p class="text-sm text-slate-500 mb-6">Materi: Deteksi Ad Hominem dalam Debat Terbuka.</p>
+                                <button class="w-full bg-red-50 text-red-700 font-semibold py-2.5 rounded-xl border border-red-100 hover:bg-red-600 hover:text-white transition-colors text-sm">Lanjutkan Stage 6</button>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden hover:shadow-md transition-shadow group">
+                            <div class="h-2 bg-purple-100 w-full relative">
+                                <div class="absolute top-0 left-0 h-full bg-purple-500 w-[100%]"></div>
+                            </div>
+                            <div class="p-6">
+                                <div class="flex justify-between items-start mb-4">
+                                    <div class="p-3 bg-purple-50 rounded-xl text-purple-600 group-hover:bg-purple-600 group-hover:text-white transition-colors">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+                                    </div>
+                                    <span class="text-xs font-bold bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full">Selesai</span>
+                                </div>
+                                <h3 class="text-lg font-bold text-slate-800 mb-1">QTE Kosakata</h3>
+                                <p class="text-sm text-slate-500 mb-6">Materi: Kosakata Akademik (Set A).</p>
+                                <button class="w-full bg-slate-50 text-slate-600 font-semibold py-2.5 rounded-xl border border-slate-200 hover:bg-slate-100 transition-colors text-sm">Main Ulang</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    
+                    <div class="bg-gradient-to-br from-indigo-700 to-purple-800 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+                        <div class="absolute -top-10 -right-10 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+                        <h3 class="text-sm font-semibold text-indigo-100 mb-1">Progres Menuju Level 2</h3>
+                        <p class="text-3xl font-bold mb-4">150<span class="text-lg font-normal text-indigo-200">/500 XP</span></p>
+                        <div class="w-full bg-black/20 rounded-full h-3 mb-2">
+                            <div class="bg-gradient-to-r from-pink-400 to-orange-400 h-3 rounded-full" style="width: 30%"></div>
+                        </div>
+                        <p class="text-xs text-indigo-200 mt-3 flex items-center">
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            Kumpulkan 350 XP lagi untuk naik level.
+                        </p>
+                    </div>
+
+                    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
+                        <h2 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4">Misi Harian</h2>
+                        <ul class="space-y-4">
+                            <li class="flex items-start space-x-3">
+                                <div class="mt-0.5 w-5 h-5 rounded border-2 border-emerald-500 bg-emerald-500 flex items-center justify-center">
+                                    <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-slate-500 line-through">Login hari ini</p>
+                                    <p class="text-xs text-emerald-500 font-bold">Terselesaikan</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start space-x-3">
+                                <div class="mt-0.5 w-5 h-5 rounded border-2 border-slate-300"></div>
+                                <div>
+                                    <p class="text-sm font-semibold text-slate-800">Selesaikan 1 stage Argument Builder</p>
+                                    <p class="text-xs text-indigo-600 font-bold">+50 XP</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start space-x-3">
+                                <div class="mt-0.5 w-5 h-5 rounded border-2 border-slate-300"></div>
+                                <div>
+                                    <p class="text-sm font-semibold text-slate-800">Deteksi 3 Fallacy dengan benar</p>
+                                    <p class="text-xs text-indigo-600 font-bold">+100 XP</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
+                        <h2 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4">Aktivitas Terakhir</h2>
+                        <div class="space-y-4 relative before:absolute before:inset-0 before:ml-2 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-200 before:to-transparent">
+                            <div class="relative flex items-center justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-4 h-4 rounded-full bg-emerald-500 ring-4 ring-white z-10"></div>
+                                    <div>
+                                        <p class="text-sm font-semibold text-slate-800">QTE Kosakata</p>
+                                        <p class="text-xs text-slate-500">Skor: B+ (45 WPM)</p>
+                                    </div>
+                                </div>
+                                <span class="text-xs font-semibold text-slate-400">2 jam lalu</span>
+                            </div>
+                            <div class="relative flex items-center justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-4 h-4 rounded-full bg-indigo-500 ring-4 ring-white z-10"></div>
+                                    <div>
+                                        <p class="text-sm font-semibold text-slate-800">Argument Builder</p>
+                                        <p class="text-xs text-slate-500">Menyelesaikan Stage 3</p>
+                                    </div>
+                                </div>
+                                <span class="text-xs font-semibold text-slate-400">Kemarin</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>
