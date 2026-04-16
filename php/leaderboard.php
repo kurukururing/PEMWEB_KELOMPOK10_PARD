@@ -1,7 +1,9 @@
 <?php
     include("./connect.php");
 
-    $query = "SELECT nama_pengguna, xp, skor, waktu_dimulai, waktu_tercepat FROM leaderboard";
+    $query = "SELECT a.username, l.xp, l.skor, l.waktu_tercepat, l.waktu_main FROM leaderboard l
+            LEFT JOIN akun a ON l.id_akun = a.id_akun
+            ORDER BY l.skor DESC";
     $result = mysqli_query($connection, $query);
 
     $dataFromDB = [];
@@ -10,7 +12,7 @@
             $dataFromDB[] = $row;
         }
     }
-    $jsonLeaderboard = json_encode($dataFromDB);
+    $jsonLeaderboard = json_encode($dataFromDB, JSON_PRETTY_PRINT);
 ?>
 
 <!DOCTYPE html>
@@ -49,7 +51,7 @@
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2z"></path></svg>
                 Leaderboard
             </a>
-            <a href="#" class="flex items-center gap-4 px-4 py-3 text-slate-500 hover:bg-slate-50 hover:text-violet-600 rounded-2xl font-bold transition-colors">
+            <a href="./latihan/builder.php" class="flex items-center gap-4 px-4 py-3 text-slate-500 hover:bg-slate-50 hover:text-violet-600 rounded-2xl font-bold transition-colors">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"></path></svg>
                 Arena Latihan
             </a>
@@ -75,10 +77,12 @@
                 <h1 class="text-xl font-extrabold text-slate-800">Papan Peringkat Global</h1>
             </div>
             <div class="flex items-center gap-4">
-                <div class="flex items-center gap-3 cursor-pointer p-1.5 pr-4 bg-slate-50 hover:bg-slate-100 rounded-full border border-slate-200 transition-colors">
-                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=PelajarBaru" alt="Profile" class="w-9 h-9 rounded-full bg-white">
-                    <span class="font-bold text-sm hidden md:block">Pelajar Baru</span>
-                </div>
+                <a href="./profil.php">
+                    <div class="flex items-center gap-3 cursor-pointer p-1.5 pr-4 bg-slate-50 hover:bg-slate-100 rounded-full border border-slate-200 transition-colors">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=PelajarBaru&backgroundColor=c0aede" alt="Profile" class="w-9 h-9 rounded-full shadow-sm bg-white">
+                        <span class="font-bold text-sm hidden md:block">Pelajar Baru</span>
+                    </div>
+                </a>
             </div>
         </header>
 
@@ -111,53 +115,7 @@
                                 </tr>
                             </thead>
                             <tbody id="leaderboard" class="divide-y divide-slate-50">
-                                <tr class="group hover:bg-violet-50/30 transition-colors">
-                                    <td class="px-6 py-5 text-center">
-                                        <span class="font-black text-yellow-500">1</span>
-                                    </td>
-                                    <td class="px-6 py-5">
-                                        <div class="flex items-center gap-3">
-                                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Bintang" class="w-9 h-9 rounded-full bg-slate-100 border border-slate-200">
-                                            <span class="font-bold text-slate-800 group-hover:text-violet-600">Bintang P.</span>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-5 text-right font-bold text-slate-600">15,200</td>
-                                    <td class="px-6 py-5 text-right font-bold text-slate-600">4,890</td>
-                                    <td class="px-6 py-5 text-right text-sm text-slate-400">8 hari lalu</td>
-                                    <td class="px-6 py-5 text-right">
-                                        <span class="font-mono text-violet-600 font-bold bg-violet-50 px-3 py-1.5 rounded-lg tracking-tight">00:12:10</span>
-                                    </td>
-                                </tr>
-                                <tr class="group hover:bg-slate-50/80 transition-colors">
-                                    <td class="px-6 py-5 text-center font-bold text-slate-400">2</td>
-                                    <td class="px-6 py-5">
-                                        <div class="flex items-center gap-3">
-                                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Siska" class="w-9 h-9 rounded-full bg-slate-100 border border-slate-200">
-                                            <span class="font-bold text-slate-800">Siska Ayu</span>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-5 text-right font-bold text-slate-600">12,400</td>
-                                    <td class="px-6 py-5 text-right font-bold text-slate-600">4,210</td>
-                                    <td class="px-6 py-5 text-right text-sm text-slate-400">12 hari lalu</td>
-                                    <td class="px-6 py-5 text-right">
-                                        <span class="font-mono text-slate-700 font-bold tracking-tight">00:14:43</span>
-                                    </td>
-                                </tr>
-                                <tr class="group hover:bg-slate-50/80 transition-colors">
-                                    <td class="px-6 py-5 text-center font-bold text-slate-400">3</td>
-                                    <td class="px-6 py-5">
-                                        <div class="flex items-center gap-3">
-                                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Riko" class="w-9 h-9 rounded-full bg-slate-100 border border-slate-200">
-                                            <span class="font-bold text-slate-800">Riko Akbar</span>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-5 text-right font-bold text-slate-600">11,800</td>
-                                    <td class="px-6 py-5 text-right font-bold text-slate-600">3,980</td>
-                                    <td class="px-6 py-5 text-right text-sm text-slate-400">15 hari lalu</td>
-                                    <td class="px-6 py-5 text-right">
-                                        <span class="font-mono text-slate-700 font-bold tracking-tight">00:16:05        </span>
-                                    </td>
-                                </tr>
+                                <!-- Js -->
                             </tbody>
                         </table>
                     </div>

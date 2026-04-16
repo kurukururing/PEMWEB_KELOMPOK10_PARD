@@ -69,7 +69,7 @@
     }
 
     // Delete
-    if(isset($_POST['delete_akun'])) {
+    if(isset($_POST['delete_button'])) {
         mysqli_query($connection, "DELETE FROM mahasiswa WHERE id_akun='$id_akun'");
         mysqli_query($connection, "DELETE FROM akun WHERE id_akun='$id_akun'");
         session_destroy();
