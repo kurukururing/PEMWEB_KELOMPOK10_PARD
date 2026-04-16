@@ -21,207 +21,203 @@
 
 <!DOCTYPE html>
 <html lang="id">
-  <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | THINKARA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Nunito', sans-serif; background-color: #F8F9FE; }
+        .soft-shadow { box-shadow: 0 10px 40px -10px rgba(124, 58, 237, 0.08); }
+        .dropzone { 
+            transition: all 0.3s ease; 
+            min-height: 80px; 
+            border: 2px dashed #e2e8f0;
+        }
+        .dropzone.drag-over { border-color: #7c3aed; background-color: #f5f3ff; }
+        .drag-item { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .drag-item:hover { transform: translateY(-2px); }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+    </style>
+</head>
 
-      <title>Dashboard | THINKARA</title>
+<body class="text-slate-700 h-screen flex overflow-hidden">
 
-      <script src="https://cdn.tailwindcss.com"></script>
-      <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <aside class="hidden md:flex flex-col w-72 bg-white border-r border-slate-100 h-full">
+        <div class="p-8 pb-6 flex items-center gap-3">
+            <div class="w-10 h-10 bg-violet-600 rounded-xl flex items-center justify-center text-white text-xl shadow-lg shadow-violet-200">✨</div>
+            <span class="text-2xl font-extrabold text-violet-600 tracking-tight">THINKARA</span>
+        </div>
+        <nav class="flex-1 px-6 space-y-2 mt-4 overflow-y-auto">
+            <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4 px-4">Menu Utama</p>
+            <a href="#" class="flex items-center gap-4 px-4 py-3 bg-violet-50 text-violet-700 rounded-2xl font-bold transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                Arena Latihan
+            </a>            
+        </nav>
+        <div class="p-6 border-t border-slate-100">
+            <a href="../dashboard.php" class="flex items-center gap-4 px-4 py-3 text-red-500 hover:bg-red-50 rounded-2xl font-bold transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                Kembali
+            </a>
+        </div>
+    </aside>
 
-      <style>
-          body { font-family: 'Nunito', sans-serif; background-color: #F8F9FE; }
-          .soft-shadow { box-shadow: 0 10px 40px -10px rgba(124, 58, 237, 0.08); }
-          ::-webkit-scrollbar { width: 6px; }
-          ::-webkit-scrollbar-track { background: transparent; }
-          ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-          ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-      </style>
-  </head>
+    <main class="flex-1 flex flex-col h-full relative overflow-hidden">
+        <header class="h-20 bg-white/80 backdrop-blur-md border-b border-slate-100 flex items-center justify-between px-6 md:px-10 z-10">
+            <div class="hidden md:block">
+                <h1 class="text-xl font-extrabold text-slate-800 tracking-tight">Argument Builder</h1>
+            </div>
+        </header>
 
-  <body class="text-slate-700 h-screen flex overflow-hidden">
+        <div class="flex-1 overflow-y-auto p-6 md:p-10 pb-24">
+            <div class="max-w-6xl mx-auto space-y-8">
+                <div class="bg-gradient-to-r from-violet-600 to-indigo-600 rounded-[2rem] p-8 text-white shadow-xl mb-10">
+                    <h3 class="text-3xl font-extrabold mb-2">Topik: <?= $d['judul'] ?></h3>
+                    <p class="text-violet-100 opacity-90">Drag item ke kotak kiri. <b>Klik item di kotak kiri</b> untuk mengembalikannya.</p>
+                </div>
 
-      <aside class="hidden md:flex flex-col w-72 bg-white border-r border-slate-100 h-full">
-          <div class="p-8 pb-6 flex items-center gap-3">
-              <div class="w-10 h-10 bg-violet-600 rounded-xl flex items-center justify-center text-white text-xl shadow-lg shadow-violet-200">✨</div>
-              <span class="text-2xl font-extrabold text-violet-600 tracking-tight">THINKARA</span>
-          </div>
-
-          <nav class="flex-1 px-6 space-y-2 mt-4 overflow-y-auto">
-              <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4 px-4">Menu Utama</p>
-              
-              <a href="#" class="flex items-center gap-4 px-4 py-3 bg-violet-50 text-violet-700 rounded-2xl font-bold transition-colors">
-                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
-                  Arena Latihan
-              </a>            
-          </nav>
-
-          <div class="p-6 border-t border-slate-100">
-              <a href="../dashboard.php" class="flex items-center gap-4 px-4 py-3 text-red-500 hover:bg-red-50 rounded-2xl font-bold transition-colors">
-                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
-                  Kembali
-              </a>
-          </div>
-      </aside>
-
-      <main class="flex-1 flex flex-col h-full relative overflow-hidden">
-          
-          <header class="h-20 bg-white/80 backdrop-blur-md border-b border-slate-100 flex items-center justify-between px-6 md:px-10 z-10">
-              
-              <div class="flex items-center gap-4 md:hidden">
-                  <button class="text-violet-600 p-2 bg-violet-50 rounded-xl">
-                      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-                  </button>
-                  <span class="text-xl font-extrabold text-violet-600 tracking-tight">THINKARA</span>
-              </div>
-
-              <div class="hidden md:block">
-                  <h1 class="text-xl font-extrabold text-slate-800">Argument Builder</h1>
-              </div>
-
-          </header>
-
-          <div class="flex-1 overflow-y-auto p-6 md:p-10 pb-24">
-              <div class="max-w-6xl mx-auto space-y-8">
-
-                  <div>
-                      <div class="flex justify-between items-end mb-6">
-                          <div>
-                              <h3 class="text-xl font-extrabold text-slate-800">
-                                Topik: <?= $d['judul'] ?>
-                              </h3>
-
-                              <p class="text-slate-500 font-medium">
-                                Pahami struktur dasar premis dan kesimpulan. Susun argumen yang valid dari blok-blok yang diacak.
-                              </p>
-                          </div>
-                      </div>
-                      
-                      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                          <div class="bg-white p-1 rounded-3xl border border-slate-100 soft-shadow group hover:border-violet-200 transition-colors">
-                              
-                            <div class="bg-slate-50 rounded-[1.5rem] p-6 h-full flex flex-col justify-between">
-                                  <div>
-                                      <h4 class="text-lg font-extrabold text-slate-800 mb-2">Tentukan</h4>
-                                      <p class="text-slate-500 text-sm font-medium leading-relaxed mb-6">
-                                      
-                                      <div class="grid grid-cols-2 gap-6 mt-6">
-                                        <div class="space-y-3">
-                                          <div class="dropzone border p-3" data-type="claim">Claim</div>
-                                          <div class="dropzone border p-3" data-type="evidence">Evidence</div>
-                                          <div class="dropzone border p-3" data-type="reasoning">Reasoning</div>
-                                          <div class="dropzone border p-3" data-type="reference">Reference</div>
-                                        </div>
-                                      </div>
-
-                                      </p>
-                                  </div>
-
-                              </div>
-                          </div>
-
-                          <div class="bg-white p-1 rounded-3xl border border-slate-100 soft-shadow group hover:border-fuchsia-200 transition-colors">
-                              <div class="bg-slate-50 rounded-[1.5rem] p-6 h-full flex flex-col justify-between">
-                                  
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    <div class="lg:col-span-5 space-y-4">
+                        <div class="bg-white p-6 rounded-[2rem] border border-slate-100 soft-shadow space-y-6">
+                            <?php 
+                            $zones = [
+                                ['type' => 'claim', 'label' => 'Claim', 'color' => 'violet'],
+                                ['type' => 'evidence', 'label' => 'Evidence', 'color' => 'blue'],
+                                ['type' => 'reasoning', 'label' => 'Reasoning', 'color' => 'emerald'],
+                                ['type' => 'reference', 'label' => 'Reference', 'color' => 'orange']
+                            ];
+                            foreach($zones as $z) { ?>
                                 <div>
-                                      <h4 class="text-lg font-extrabold text-slate-800 mb-2">Isi Bacaan</h4>
-                                      <p class="text-slate-500 text-sm font-medium leading-relaxed mb-6">
-                                        <?= $d['isi'] ?>
-                                      </p>
+                                    <label class="text-xs font-black text-<?= $z['color'] ?>-600 uppercase mb-2 block ml-1"><?= $z['label'] ?></label>
+                                    <div class="dropzone rounded-2xl bg-slate-50 p-4 flex items-center justify-center text-center cursor-default" data-type="<?= $z['type'] ?>">
+                                        <span class="placeholder text-slate-300 font-bold text-sm">Kosong</span>
+                                    </div>
+                                </div>
+                            <?php } ?>
+                        </div>
+                    </div>
 
-                                      <h4 class="text-lg font-extrabold text-slate-800 mb-2">Drag Jawaban</h4>
-                                      <div class="mt-6 flex flex-wrap gap-3">
-                                        <?php while($item = mysqli_fetch_assoc($q2)) { ?>
-                                              
-                                          <div class="drag-item border px-3 py-2 cursor-move" draggable="true" data-type="<?= $item['tipe'] ?>"
-                                            data-correct="<?= $item['is_correct'] ?>">
-                                              <?= $item['teks'] ?>
-                                          </div>
+                    <div class="lg:col-span-7 space-y-6">
+                        <div class="bg-white p-8 rounded-[2rem] border border-slate-100 soft-shadow">
+                            <h4 class="text-lg font-extrabold text-slate-800 mb-4 italic leading-relaxed border-l-4 border-fuchsia-200 pl-4">
+                                "<?= $d['isi'] ?>"
+                            </h4>
+                        </div>
 
-                                          <?php } ?>
-                                      </div>
-                                  </div>
+                        <div id="source-pool" class="bg-white p-8 rounded-[2rem] border border-slate-100 soft-shadow min-h-[200px]">
+                            <h4 class="text-lg font-extrabold text-slate-800 mb-6">Pilihan Potongan</h4>
+                            <div class="flex flex-wrap gap-4 items-start" id="pool-container">
+                                <?php while($item = mysqli_fetch_assoc($q2)) { ?>
+                                    <div class="drag-item bg-white border-2 border-slate-100 p-4 rounded-2xl cursor-grab active:cursor-grabbing hover:border-violet-300 font-bold text-slate-700 text-sm shadow-sm" 
+                                         draggable="true" 
+                                         data-type="<?= $item['tipe'] ?>"
+                                         data-correct="<?= $item['is_correct'] ?>"
+                                         onclick="returnToPool(this)">
+                                        <?= $item['teks'] ?>
+                                    </div>
+                                <?php } ?>
+                            </div>
+                        </div>
 
-                              </div>
-                          </div>
+                        <div class="flex items-center gap-4 pt-4">
+                            <form id="gameForm" method="POST" action="submit_score.php" class="flex-1">
+                                <input type="hidden" name="waktu" id="waktuInput">
+                                <input type="hidden" name="skor" id="skorInput">
+                                <button type="button" onclick="submitGame()" class="w-full bg-violet-600 hover:bg-violet-700 text-white font-bold py-4 rounded-2xl shadow-lg transition-all">
+                                    Submit Jawaban
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 
-                      </div>
-                  </div>
-
-                  <form id="gameForm" method="POST" action="submit_score.php">
-                    <input type="hidden" name="waktu" id="waktuInput">
-
-                    <input type="hidden" name="skor" id="skorInput">
-                    <button type="button" onclick="submitGame()" 
-                        class="mt-6 bg-violet-600 text-white px-6 py-2 rounded-lg">
-                        Submit Jawaban
-                    </button>
-
-                    <button type="button" onclick="location.reload()" 
-                        class="mt-2 bg-gray-400 text-white px-6 py-2 rounded-lg">
-                        Tantangan Baru
-                    </button>
-                  </form>
-
-              </div>
-          </div>
-      </main>
-      
-      <script>
+    <script>
         let dragged = null;
+        const poolContainer = document.getElementById('pool-container');
+
+        // Fungsi Klik untuk Mengembalikan ke Pool
+        function returnToPool(item) {
+            if (item.parentElement.classList.contains('dropzone')) {
+                const zone = item.parentElement;
+                poolContainer.appendChild(item);
+                checkPlaceholder(zone);
+            }
+        }
+
+        function checkPlaceholder(zone) {
+            const placeholder = zone.querySelector('.placeholder');
+            if (zone.querySelectorAll('.drag-item').length === 0) {
+                if (placeholder) placeholder.style.display = 'block';
+            } else {
+                if (placeholder) placeholder.style.display = 'none';
+            }
+        }
 
         document.querySelectorAll('.drag-item').forEach(item => {
             item.addEventListener('dragstart', () => {
                 dragged = item;
+                item.style.opacity = '0.5';
+            });
+            item.addEventListener('dragend', () => {
+                item.style.opacity = '1';
+                dragged = null;
             });
         });
 
-        document.querySelectorAll('.dropzone').forEach(zone => {
-            zone.addEventListener('dragover', e => e.preventDefault());
-            zone.addEventListener('drop', function () {
-
-                if (!dragged) return;
-
-                this.appendChild(dragged);
-                dragged = null;
+        // Setup Dropzones dan Pool
+        [...document.querySelectorAll('.dropzone'), poolContainer].forEach(zone => {
+            zone.addEventListener('dragover', e => {
+                e.preventDefault();
+                if (zone.classList.contains('dropzone') && zone.querySelectorAll('.drag-item').length > 0) return;
+                zone.classList.add('drag-over');
             });
 
+            zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+
+            zone.addEventListener('drop', function (e) {
+                e.preventDefault();
+                this.classList.remove('drag-over');
+                if (!dragged) return;
+
+                const oldParent = dragged.parentElement;
+
+                if (this.classList.contains('dropzone')) {
+                    if (this.querySelectorAll('.drag-item').length === 0) {
+                        this.appendChild(dragged);
+                    }
+                } else {
+                    this.appendChild(dragged);
+                }
+
+                if (oldParent.classList.contains('dropzone')) checkPlaceholder(oldParent);
+                if (this.classList.contains('dropzone')) checkPlaceholder(this);
+            });
         });
 
         let startTime = new Date();
-
-        // submit skor
         function submitGame() {
-            let endTime = new Date();
-            let duration = Math.floor((endTime - startTime) / 1000);
-
+            let duration = Math.floor((new Date() - startTime) / 1000);
             document.getElementById("waktuInput").value = duration;
-
             let score = 0;
-
-            document.querySelectorAll('.drag-item').forEach(item => {
-                let parent = item.parentElement;
-
-                if (!parent.classList.contains('dropzone')) return;
-
-                let correctType = item.dataset.type;
-                let zoneType = parent.dataset.type;
-                let isCorrect = item.dataset.correct;
-
-                // cek benar
-                if (correctType === zoneType && isCorrect == "1") {
-                    item.style.background = "lightgreen";
+            document.querySelectorAll('.dropzone').forEach(zone => {
+                const item = zone.querySelector('.drag-item');
+                if (item && item.dataset.type === zone.dataset.type && item.dataset.correct == "1") {
+                    item.style.background = "#dcfce7";
                     score += 10;
-                } else {
-                    item.style.background = "salmon";
+                } else if (item) {
+                    item.style.background = "#fee2e2";
                 }
             });
-            
             document.getElementById("skorInput").value = score;
             document.getElementById("gameForm").submit();
         }
-        </script>
-
-  </body>
+    </script>
+</body>
 </html>
