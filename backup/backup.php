@@ -85,6 +85,8 @@
 
 // -----------
 
+// <!-- <input type="hidden" id="nama" name="nama" value="<?php echo $username; -->
+
 // -----------
 
 // -----------

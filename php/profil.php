@@ -7,6 +7,76 @@
         echo "Kamu tidak punya akses";
         exit();
     }
+
+    $username           = "";
+    $email              = "";
+
+    $npm                = "";
+    $nama               = "";
+    $jenis_kelamin      = "";
+    $jenjang            = "";
+    $tanggal_lahir      = "";
+    $instansi           = "";
+
+    $sukses             = "";
+    $error              = "";
+
+    // Cek Akun
+    $id_akun    = $_SESSION['id_akun'];
+    $sql        = "SELECT a.username, a.email, a.created_at,
+                    m.npm, m.nama_mahasiswa, m.jenis_kelamin, m.jenjang, m.tanggal_lahir, m.instansi
+                FROM akun a
+                JOIN mahasiswa m ON a.id_akun = m.id_akun
+                WHERE a.id_akun = '$id_akun'";
+    $q          = mysqli_query($connection, $sql);
+    $d          = mysqli_fetch_assoc($q);
+
+    $username       = $d['username'];
+    $email          = $d['email'];
+    $created_at     = date('d M Y', strtotime($d['created_at']));
+
+    $npm            = $d['npm'];
+    $nama           = $d['nama_mahasiswa'];
+    
+    $jenis_kelamin  = $d['jenis_kelamin']   ?? '';
+    $jenjang        = $d['jenjang']         ?? '';
+    $tanggal_lahir  = $d['tanggal_lahir']   ?? '';
+    $instansi       = $d['instansi']        ?? '';
+
+    // Update
+    if(isset($_POST['update_button'])) {
+        $nama           = $_POST['nama'];
+        $username       = $_POST['username'];
+        $jenis_kelamin  = $_POST['jenis_kelamin'];
+        $jenjang        = $_POST['jenjang'];
+        $tanggal_lahir  = $_POST['tanggal_lahir'];
+        $instansi       = $_POST['instansi'];
+
+        if($nama == '' || $username == '') {
+            $error = "Nama dan Username wajib diisi.";
+        } else {
+            // Update akun
+            $sql1 = "UPDATE akun SET username='$username' WHERE id_akun='$id_akun'";
+            mysqli_query($connection, $sql1);
+
+            // Update mahasiswa
+            $sql2 = "UPDATE mahasiswa SET nama_mahasiswa='$nama', jenis_kelamin='$jenis_kelamin', jenjang='$jenjang', 
+                    tanggal_lahir='$tanggal_lahir', instansi='$instansi' WHERE id_akun='$id_akun'";
+            mysqli_query($connection, $sql2);
+
+            // $sukses = "Profil berhasil diperbarui.";
+        }
+    }
+
+    // Delete
+    if(isset($_POST['delete_akun'])) {
+        mysqli_query($connection, "DELETE FROM mahasiswa WHERE id_akun='$id_akun'");
+        mysqli_query($connection, "DELETE FROM akun WHERE id_akun='$id_akun'");
+        session_destroy();
+
+        header("location:./akun.php#login");
+        exit();
+    }
 ?>
 
 <!DOCTYPE html>
@@ -99,9 +169,15 @@
                             </div>
                             
                             <div class="text-center md:text-left mb-2 flex-1 pt-4 md:pt-0">
-                                <h2 class="text-3xl font-extrabold text-slate-800">Axel Dev</h2>
-                                <p class="text-violet-600 font-bold mb-1">@axel_thinker</p>
-                                <p class="text-slate-500 font-medium">Mahasiswa Sistem Informasi • Bergabung 2026</p>
+                                <h2 class="text-3xl font-extrabold text-slate-800">
+                                    <?= $nama ?>
+                                </h2>
+                                <p class="text-violet-600 font-bold mb-1">
+                                    @<?= $username ?>
+                                </p>
+                                <p class="text-slate-500 font-medium">
+                                    Mahasiswa <?= $jenjang ? $jenjang : '' ?> | Bergabung <?= $created_at ?>
+                                </p>
                             </div>
                             
                             <div class="flex gap-3 mt-4 md:mt-0">
@@ -113,34 +189,95 @@
 
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 pb-10">
                     <div class="lg:col-span-2 space-y-8">
+                        
                         <div class="bg-white p-8 rounded-3xl border border-slate-100 soft-shadow">
                             <h3 class="text-xl font-extrabold text-slate-800 mb-6">Informasi Pribadi</h3>
-                            <form class="space-y-6">
+
+                            <!-- Alert -->
+                            <?php if($error): ?>
+                                <p class="text-red-500 font-bold"><?= $error ?></p>
+                            <?php endif; ?>
+
+                            <?php if($sukses): ?>
+                                <p class="text-green-500 font-bold"><?= $sukses ?></p>
+                            <?php endif; ?>
+                            <!-- /Alert -->
+
+                            <!-- Form -->
+                            <form action="" method="POST" class="space-y-6">
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div>
                                         <label class="block text-sm font-bold text-slate-700 mb-2">Nama Lengkap</label>
-                                        <input type="text" value="Axel Dev" class="w-full px-5 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 font-medium focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 transition-all">
+                                        <input type="text" name="nama" value="<?= $nama ?>" 
+                                            class="w-full px-5 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 font-medium 
+                                            focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 transition-all">
                                     </div>
                                     <div>
                                         <label class="block text-sm font-bold text-slate-700 mb-2">Username</label>
-                                        <input type="text" value="axel_thinker" class="w-full px-5 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 font-medium focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 transition-all">
+                                        <input type="text" name="username" value="<?= $username ?>" 
+                                            class="w-full px-5 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 font-medium 
+                                            focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 transition-all">
                                     </div>
                                 </div>
                                 
                                 <div>
                                     <label class="block text-sm font-bold text-slate-700 mb-2">Email Address</label>
-                                    <input type="email" value="axel.dev@student.ac.id" class="w-full px-5 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 font-medium focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 transition-all">
+                                    <input type="email" value="<?= $email ?>" readonly
+                                        class="w-full px-5 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 font-medium 
+                                        focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 transition-all">
                                 </div>
 
                                 <div>
-                                    <label class="block text-sm font-bold text-slate-700 mb-2">Bio Singkat / Afiliasi</label>
-                                    <textarea rows="3" class="w-full px-5 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 font-medium focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 transition-all">Mahasiswa Sistem Informasi. Tertarik dengan perdebatan logika, filsafat, dan teknologi.</textarea>
+                                    <label class="block text-sm font-bold text-slate-700 mb-2">Jenjang</label>
+                                    <input type="text" name="jenjang" value="<?= $jenjang ?>"
+                                        class="w-full px-5 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 font-medium 
+                                        focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 transition-all">
                                 </div>
 
+                                <div>
+                                    <label class="block text-sm font-bold text-slate-700 mb-2">Tanggal Lahir</label>
+                                    <input type="date" name="tanggal_lahir" value="<?= $tanggal_lahir ?>"
+                                        class="w-full px-5 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 font-medium 
+                                        focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 transition-all">
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-bold text-slate-700 mb-2">Jenis Kelamin</label>
+                                    <select name="jenis_kelamin"
+                                        class="w-full px-5 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 font-medium 
+                                        focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 transition-all">
+                                        
+                                        <option value="">- Pilih -</option>
+                                        <option value="Laki-laki" <?= $jenis_kelamin == 'Laki-laki' ? 'selected' : '' ?>>Laki-laki</option>
+                                        <option value="Perempuan" <?= $jenis_kelamin == 'Perempuan' ? 'selected' : '' ?>>Perempuan</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-bold text-slate-700 mb-2">Afiliasi Instansi</label>
+                                    <input type="text" name="instansi" value="<?= $instansi ?>"
+                                        class="w-full px-5 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 font-medium 
+                                        focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 transition-all">                                        
+                                </div>
+
+                                <!-- <div>
+                                    <label class="block text-sm font-bold text-slate-700 mb-2">Bio Singkat / Afiliasi</label>
+                                    <textarea rows="3" 
+                                        class="w-full px-5 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 font-medium 
+                                        focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 transition-all">
+                                        Mahasiswa Sistem Informasi. Tertarik dengan perdebatan logika, filsafat, dan teknologi.
+                                    </textarea>
+                                </div> -->
+
                                 <div class="flex justify-end pt-4">
-                                    <button type="button" class="bg-violet-600 text-white font-bold py-3 px-8 rounded-full shadow-lg shadow-violet-200 hover:bg-violet-700 transition-all">Simpan Perubahan</button>
+                                    <button type="submit" name="update_button" 
+                                        class="bg-violet-600 text-white font-bold py-3 px-8 rounded-full shadow-lg shadow-violet-200 
+                                        hover:bg-violet-700 transition-all">
+                                        Simpan Perubahan</button>
                                 </div>
                             </form>
+                            <!-- /FORM -->
+
                         </div>
 
                         <div class="bg-white p-8 rounded-3xl border border-slate-100 soft-shadow">
@@ -148,7 +285,10 @@
                             <form class="space-y-6">
                                 <div>
                                     <label class="block text-sm font-bold text-slate-700 mb-2">Password Saat Ini</label>
-                                    <input type="password" placeholder="••••••••" class="w-full px-5 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 font-medium focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 transition-all">
+                                    <input type="password" name="password"
+                                        placeholder="••••••••" 
+                                        class="w-full px-5 py-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 font-medium 
+                                        focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 transition-all">
                                 </div>
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div>
@@ -206,9 +346,12 @@
                                     Keluar dari Akun
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
                                 </a>
-                                <button class="w-full text-left px-4 py-3 text-slate-400 hover:text-red-500 font-bold transition-colors text-sm">
-                                    Hapus Akun Permanen
-                                </button>
+                                <form action="" method="POST" onsubmit="return confirm('Yakin ingin menghapus akun?');">
+                                    <button type="submit" name="delete_button"
+                                        class="w-full text-left px-4 py-3 text-slate-400 hover:text-red-500 font-bold transition-colors text-sm">
+                                        Hapus Akun Permanen
+                                    </button>
+                                </form>
                             </div>
                         </div>
 

@@ -19,10 +19,13 @@
     
     include("./connect.php");
     
-    $nama       = "";
+    $username   = "";
     $email      = "";
     $password   = "";
     $role       = "";
+    
+    $npm        = "";
+    $nama       = "";
 
     $sukses     = "";
     $error      = "";
@@ -50,6 +53,7 @@
                 // Cek Hak
                 $_SESSION['email']      = $r['email'];
                 $_SESSION['role']       = $r['user_role'];
+                $_SESSION['id_akun']    = $r['id_akun'];
 
                 if ($r['user_role'] == "admin") {
                     header("location:./dashboard2.php");
@@ -65,21 +69,40 @@
 
     // Button signup klik
     if(isset($_POST['signup_button'])) {
-        $nama       = $_POST['nama'];
+        $username   = $_POST['username'];
         $email      = $_POST['email'];
         $password   = $_POST['password'];
         $role       = "mahasiswa"; // default sementara
 
+        $npm        = $_POST['npm'];
+        $npm        = trim($npm); // no space
+        $nama       = $username; // default sementara
+
         // Cek kosong
-        if($nama == '' or $email == '' or $password == '') {
+        if($username == '' or $email == '' or $password == '' or $npm == '') {
             $error .= "Silahkan masukkan semua data.";
         }
 
-        // Cek Email
+        // Cek NPM
+        if(!preg_match("/^[0-9]{1,11}$/", $npm)) {
+            $error .= "NPM harus berupa angka dan maksimal 11 digit.";
+        }
+
+        // Cek Eksistensi
         if(empty($error)) {
-            $cek    = mysqli_query($connection, "SELECT * FROM akun WHERE email = '$email'");
+            $cek    = mysqli_query($connection, "SELECT * FROM akun 
+                    WHERE email = '$email' OR username = '$username'");
             if(mysqli_num_rows($cek) > 0) {
-                $error .= "Email sudah terdaftar.";
+                $data = mysqli_fetch_assoc($cek);
+
+                // Cek Email
+                if($data['email'] == $email) {
+                    $error .= "Email sudah terdaftar.";
+                }
+                // Cek Username
+                if($data['username'] == $username) {
+                    $error .= "Username sudah terdaftar.";
+                }
             }
         }
 
@@ -89,18 +112,19 @@
             $password_hash = md5($password);
 
             // Tabel akun
-            $sql1       = "INSERT INTO akun (email, password, user_role) 
-                        VALUES ('$email', '$password_hash', '$role')";
+            $sql1       = "INSERT INTO akun (username, email, password, user_role) 
+                        VALUES ('$username', '$email', '$password_hash', '$role')";
             $q1         = mysqli_query($connection, $sql1);
-            $id_akun    = mysqli_insert_id($connection);
+            $id_akun    = mysqli_insert_id($connection); // panggil id
 
             // Tabel mahasiswa
-            $sql2       = "INSERT INTO mahasiswa (id_akun, nama_mahasiswa)
-                        VALUES ('$id_akun', '$nama')";
+            $sql2       = "INSERT INTO mahasiswa (id_akun, npm, nama_mahasiswa)
+                        VALUES ('$id_akun', '$npm', '$nama')";
             $q2         = mysqli_query($connection, $sql2);
 
-            $_SESSION['email']  = $email;
-            $_SESSION['role']   = $role;
+            $_SESSION['email']      = $email;
+            $_SESSION['role']       = $role;
+            $_SESSION['id_akun']    = $id_akun;
 
             // $sukses = "Registrasi berhasil.";
             header("location:./dashboard.php");
@@ -200,7 +224,7 @@
                 <form action="" method="POST" id="loginForm" class="space-y-5 block">
                     <div>
                         <label class="block text-sm font-bold text-slate-700 mb-2">Email</label>
-                        <input id="email" name="email" type="email" required value="<?php echo $email ?>"
+                        <input id="email" name="email" type="email" required value="<?= $email ?>"
                             class="w-full px-5 py-3.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 
                                 font-medium focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 
                                 transition-all placeholder-slate-400"
@@ -233,22 +257,22 @@
                         </p>
                     </div>
                 </form>
-                <!-- LOGIN -->
+                <!-- /LOGIN -->
 
                 <!-- SIGNUP -->
                 <form action="" method="POST" id="signupForm" class="space-y-5 hidden">
                     <div>
-                        <label class="block text-sm font-bold text-slate-700 mb-2">Nama Lengkap</label>
-                        <input id="nama" name="nama" type="text" required value="<?php echo $nama; ?>"
+                        <label class="block text-sm font-bold text-slate-700 mb-2">Username</label>
+                        <input id="username" name="username" type="text" required value="<?= $username ?>"
                             class="w-full px-5 py-3.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 
                             font-medium focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 
                             transition-all placeholder-slate-400"
-                            placeholder="Masukkan nama kamu">
+                            placeholder="Masukkan username kamu">
                     </div>
 
                     <div>
                         <label class="block text-sm font-bold text-slate-700 mb-2">Email</label>
-                        <input id="email" name="email" type="email" required value="<?php echo $email; ?>"
+                        <input id="email" name="email" type="email" required value="<?= $email ?>"
                             class="w-full px-5 py-3.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 
                             font-medium focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 
                             transition-all placeholder-slate-400"
@@ -262,6 +286,17 @@
                             font-medium focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 
                             transition-all placeholder-slate-400"
                             placeholder="Buat password kuat">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">NPM</label>
+                        <input id="npm" name="npm" type="text" required
+                            pattern="[0-9]{1,11}" maxlength="11" oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                            value="<?= $npm ?>"
+                            class="w-full px-5 py-3.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-800 
+                            font-medium focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500 
+                            transition-all placeholder-slate-400"
+                            placeholder="Masukkan NPM kamu">
                     </div>
                     
                     <input type="hidden" id="role" name="role" value="mahasiswa">
@@ -280,7 +315,7 @@
                         </p>
                     </div>
                 </form>
-                <!-- SIGNUP -->
+                <!-- /SIGNUP -->
 
             </div>
         </div>
