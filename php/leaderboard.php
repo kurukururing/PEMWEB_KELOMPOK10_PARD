@@ -91,6 +91,7 @@
                         <p class="text-slate-500 font-medium">Data performa berdasarkan pemikiran kritis.</p>
                     </div>
                     <div class="flex gap-2">
+                        <input type="text" id="pencarian" onkeyup="funSearch()" class="px-5 shadow-sm border-slate-400 rounded-xl font-semibold hover:bg-slate-50" placeholder="Cari ...">
                         <button id="btncepat" onclick="ubahLeaderboard('waktu_tercepat')" class="px-5 py-2.5 bg-violet-600 text-white font-bold rounded-xl shadow-lg shadow-violet-200 transition-all hover:scale-105">Waktu Tercepat</button>
                         <button id="btnmulai" onclick="ubahLeaderboard('waktu_dimulai')" class="px-5 py-2.5 bg-white border border-slate-200 text-slate-600 font-bold rounded-xl transition-all hover:bg-slate-50">Waktu Mulai</button>
                     </div>

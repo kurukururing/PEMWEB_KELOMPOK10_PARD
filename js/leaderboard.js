@@ -1,5 +1,29 @@
 // coba leaderboard
 
+// pencarian
+
+function funSearch() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("pencarian");
+  filter = input.value.toUpperCase().trim();
+  table = document.getElementById("tabel");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 1; i < tr.length; i++) {
+
+    const rowText = tr[i].innerText || tr[i].textContent;
+    if (rowText) {
+            if (rowText.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+    }
+  }
+}
+
 const leaderboardData = data_dari_DB || [];
 console.log("Data Leaderboard:", leaderboardData); // Cek ini di Console F12
 
