@@ -408,7 +408,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div class="bg-[#F8F9FE] p-8 rounded-[2rem] text-center soft-shadow border border-slate-50 
                         hover:-translate-y-2 transition-transform">
-                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Budi&backgroundColor=c0aede" alt="Axel" 
+                        <img src="gambar/fotoAxel.png" alt="Axel" 
                             class="w-24 h-24 mx-auto rounded-full mb-4 shadow-sm">                
                         
                         <h3 class="text-xl font-bold text-slate-800">AXEL</h3>
@@ -417,7 +417,7 @@
 
                     <div class="bg-[#F8F9FE] p-8 rounded-[2rem] text-center soft-shadow border border-slate-50 
                         md:-translate-y-6 hover:-translate-y-8 transition-transform">
-                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Reza&backgroundColor=ffdfbf" alt="Jeff" 
+                        <img src="gambar/fotoJeff.png" alt="Jeff" 
                             class="w-24 h-24 mx-auto rounded-full mb-4 shadow-sm">
                         
                         <h3 class="text-xl font-bold text-slate-800">JEFF</h3>
@@ -426,7 +426,7 @@
 
                     <div class="bg-[#F8F9FE] p-8 rounded-[2rem] text-center soft-shadow border border-slate-50 
                         hover:-translate-y-2 transition-transform">
-                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Siti&backgroundColor=f4b6d0" alt="Najwa" 
+                        <img src="gambar/fotoNana.png" alt="Najwa" 
                             class="w-24 h-24 mx-auto rounded-full mb-4 shadow-sm">
                         
                         <h3 class="text-xl font-bold text-slate-800">NAJWA</h3>
