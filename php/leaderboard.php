@@ -1,3 +1,18 @@
+<?php
+    include("./connect.php");
+
+    $query = "SELECT nama_pengguna, xp, skor, waktu_dimulai, waktu_tercepat FROM leaderboard";
+    $result = mysqli_query($connection, $query);
+
+    $dataFromDB = [];
+    if (mysqli_num_rows($result) > 0) {
+        while ($row = mysqli_fetch_assoc($result)) {
+            $dataFromDB[] = $row;
+        }
+    }
+    $jsonLeaderboard = json_encode($dataFromDB);
+?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -76,25 +91,25 @@
                         <p class="text-slate-500 font-medium">Data performa berdasarkan pemikiran kritis.</p>
                     </div>
                     <div class="flex gap-2">
-                        <button class="px-5 py-2.5 bg-violet-600 text-white font-bold rounded-xl shadow-lg shadow-violet-200 transition-all hover:scale-105">Waktu Tercepat</button>
-                        <button class="px-5 py-2.5 bg-white border border-slate-200 text-slate-600 font-bold rounded-xl transition-all hover:bg-slate-50">Waktu Mulai</button>
+                        <button id="btncepat" onclick="ubahLeaderboard('waktu_tercepat')" class="px-5 py-2.5 bg-violet-600 text-white font-bold rounded-xl shadow-lg shadow-violet-200 transition-all hover:scale-105">Waktu Tercepat</button>
+                        <button id="btnmulai" onclick="ubahLeaderboard('waktu_dimulai')" class="px-5 py-2.5 bg-white border border-slate-200 text-slate-600 font-bold rounded-xl transition-all hover:bg-slate-50">Waktu Mulai</button>
                     </div>
                 </div>
 
                 <div class="bg-white rounded-3xl border border-slate-100 soft-shadow overflow-hidden">
                     <div class="overflow-x-auto">
-                        <table class="w-full text-left border-collapse">
+                        <table id="tabel" class="w-full text-left border-collapse">
                             <thead>
                                 <tr class="bg-slate-50 border-b border-slate-100">
-                                    <th class="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest w-16 text-center">#</th>
-                                    <th class="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest">Player</th>
-                                    <th class="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest text-right">XP</th>
-                                    <th class="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest text-right">Skor</th>
-                                    <th class="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest text-right">Waktu Mulai</th>
-                                    <th class="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest text-right">Waktu Tercepat</th>
+                                    <th onclick="urutkanTabel(0)" class="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest w-16 text-center">#</th>
+                                    <th onclick="urutkanTabel(1)" class="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest">Player</th>
+                                    <th onclick="urutkanTabel(2)" class="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest text-right">XP</th>
+                                    <th onclick="urutkanTabel(3)" class="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest text-right">Skor</th>
+                                    <th onclick="urutkanTabel(4)" class="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest text-right">Waktu Mulai</th>
+                                    <th onclick="urutkanTabel(5)" class="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest text-right">Waktu Tercepat</th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-slate-50">
+                            <tbody id="leaderboard" class="divide-y divide-slate-50">
                                 <tr class="group hover:bg-violet-50/30 transition-colors">
                                     <td class="px-6 py-5 text-center">
                                         <span class="font-black text-yellow-500">1</span>
@@ -109,7 +124,7 @@
                                     <td class="px-6 py-5 text-right font-bold text-slate-600">4,890</td>
                                     <td class="px-6 py-5 text-right text-sm text-slate-400">8 hari lalu</td>
                                     <td class="px-6 py-5 text-right">
-                                        <span class="font-mono text-violet-600 font-bold bg-violet-50 px-3 py-1.5 rounded-lg tracking-tight">12m 10s 463ms</span>
+                                        <span class="font-mono text-violet-600 font-bold bg-violet-50 px-3 py-1.5 rounded-lg tracking-tight">00:12:10</span>
                                     </td>
                                 </tr>
                                 <tr class="group hover:bg-slate-50/80 transition-colors">
@@ -124,7 +139,7 @@
                                     <td class="px-6 py-5 text-right font-bold text-slate-600">4,210</td>
                                     <td class="px-6 py-5 text-right text-sm text-slate-400">12 hari lalu</td>
                                     <td class="px-6 py-5 text-right">
-                                        <span class="font-mono text-slate-700 font-bold tracking-tight">14m 43s 126ms</span>
+                                        <span class="font-mono text-slate-700 font-bold tracking-tight">00:14:43</span>
                                     </td>
                                 </tr>
                                 <tr class="group hover:bg-slate-50/80 transition-colors">
@@ -139,7 +154,7 @@
                                     <td class="px-6 py-5 text-right font-bold text-slate-600">3,980</td>
                                     <td class="px-6 py-5 text-right text-sm text-slate-400">15 hari lalu</td>
                                     <td class="px-6 py-5 text-right">
-                                        <span class="font-mono text-slate-700 font-bold tracking-tight">16m 05s 562ms</span>
+                                        <span class="font-mono text-slate-700 font-bold tracking-tight">00:16:05        </span>
                                     </td>
                                 </tr>
                             </tbody>
@@ -179,3 +194,9 @@
 
 </body>
 </html>
+
+<script>
+    const data_dari_DB = <?php echo $jsonLeaderboard; ?>;
+</script>
+
+<script src="../js/leaderboard.js"></script>
