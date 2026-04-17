@@ -64,7 +64,7 @@
                     tanggal_lahir='$tanggal_lahir', instansi='$instansi' WHERE id_akun='$id_akun'";
             mysqli_query($connection, $sql2);
 
-            // $sukses = "Profil berhasil diperbarui.";
+            $sukses = "Profil berhasil diperbarui.";
         }
     }
 
@@ -194,12 +194,13 @@
                             <h3 class="text-xl font-extrabold text-slate-800 mb-6">Informasi Pribadi</h3>
 
                             <?php if($error): ?>
-                                <p class="text-red-500 font-bold"><?= $error ?></p>
+                                <p class="text-red-500 font-bold mb-4"><?= $error ?></p>
                             <?php endif; ?>
 
                             <?php if($sukses): ?>
-                                <p class="text-green-500 font-bold"><?= $sukses ?></p>
+                                <p class="text-green-500 font-bold mb-4"><?= $sukses ?></p>
                             <?php endif; ?>
+
                             <form action="" method="POST" class="space-y-6">
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div>
@@ -331,12 +332,9 @@
                                     Keluar dari Akun
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
                                 </button>
-                                <form action="" method="POST" onsubmit="return confirm('Yakin ingin menghapus akun?');">
-                                    <button type="submit" name="delete_button"
-                                        class="w-full text-left px-4 py-3 text-slate-400 hover:text-red-500 font-bold transition-colors text-sm">
-                                        Hapus Akun Permanen
-                                    </button>
-                                </form>
+                                <button type="button" onclick="showDeleteModal()" class="w-full text-left px-4 py-3 text-slate-400 hover:text-red-500 font-bold transition-colors text-sm">
+                                    Hapus Akun Permanen
+                                </button>
                             </div>
                         </div>
 
@@ -349,37 +347,63 @@
 
     <div id="logoutModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4">
         <div class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" onclick="hideLogoutModal()"></div>
-        
         <div class="relative bg-white rounded-[2.5rem] w-full max-w-md p-8 shadow-2xl border border-slate-100 transform transition-all">
             <div class="flex flex-col items-center text-center">
-                <div class="w-20 h-20 bg-red-50 rounded-full flex items-center justify-center text-3xl mb-6">
-                    👋
-                </div>
+                <div class="w-20 h-20 bg-red-50 rounded-full flex items-center justify-center text-3xl mb-6">👋</div>
                 <h3 class="text-2xl font-extrabold text-slate-800 mb-2">Mau istirahat dulu?</h3>
                 <p class="text-slate-500 font-medium mb-8">Kamu akan keluar dari sesi THINKARA. Pastikan semua progresmu sudah tersimpan ya!</p>
-                
                 <div class="flex flex-col w-full gap-3">
-                    <a href="./logout.php" class="w-full py-4 bg-red-500 hover:bg-red-600 text-white font-bold rounded-2xl shadow-lg shadow-red-100 transition-all">
-                        Ya, Keluar Sekarang
-                    </a>
-                    <button onclick="hideLogoutModal()" class="w-full py-4 bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold rounded-2xl transition-all">
-                        Tetap di Sini
-                    </button>
+                    <a href="./logout.php" class="w-full py-4 bg-red-500 hover:bg-red-600 text-white font-bold rounded-2xl shadow-lg shadow-red-100 transition-all">Ya, Keluar Sekarang</a>
+                    <button onclick="hideLogoutModal()" class="w-full py-4 bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold rounded-2xl transition-all">Tetap di Sini</button>
                 </div>
             </div>
         </div>
     </div>
 
+    <div id="deleteModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4">
+        <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-md" onclick="hideDeleteModal()"></div>
+        <div class="relative bg-white rounded-[2.5rem] w-full max-w-md p-8 shadow-2xl border border-slate-100 transform transition-all">
+            <div class="flex flex-col items-center text-center">
+                <div class="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center text-3xl mb-6 text-red-600">🚨</div>
+                <h3 class="text-2xl font-extrabold text-slate-800 mb-2">Hapus Akun Permanen?</h3>
+                <p class="text-slate-500 font-medium mb-8">Tindakan ini tidak dapat dibatalkan. Seluruh data, skor, dan lencana kamu akan hilang selamanya.</p>
+                
+                <form action="" method="POST" class="w-full flex flex-col gap-3">
+                    <button type="submit" name="delete_button" class="w-full py-4 bg-red-600 hover:bg-red-700 text-white font-bold rounded-2xl shadow-lg shadow-red-200 transition-all">
+                        Ya, Hapus Akun Saya
+                    </button>
+                    <button type="button" onclick="hideDeleteModal()" class="w-full py-4 bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold rounded-2xl transition-all">
+                        Batal
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script>
+        // Script Logout
         function showLogoutModal() {
             const modal = document.getElementById('logoutModal');
             modal.classList.remove('hidden');
             modal.classList.add('flex');
             document.body.style.overflow = 'hidden';
         }
-
         function hideLogoutModal() {
             const modal = document.getElementById('logoutModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Script Delete Account
+        function showDeleteModal() {
+            const modal = document.getElementById('deleteModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+        function hideDeleteModal() {
+            const modal = document.getElementById('deleteModal');
             modal.classList.add('hidden');
             modal.classList.remove('flex');
             document.body.style.overflow = 'auto';
