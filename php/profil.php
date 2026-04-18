@@ -96,6 +96,26 @@
         .custom-scroll::-webkit-scrollbar-thumb:hover { background-color: #94a3b8; }
     </style>
 </head>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          primary: {
+            light: '#fde047',
+            DEFAULT: '#eab308', // Kuning
+            dark: '#a16207',
+          },
+          secondary: {
+            light: '#f87171',
+            DEFAULT: '#dc2626', // Merah
+            dark: '#991b1b',
+          },
+        }
+      }
+    }
+  }
+</script>
 <body class="text-slate-700 h-screen flex overflow-hidden">
 
     <aside class="hidden md:flex flex-col w-72 bg-white border-r border-slate-100 h-full shrink-0">

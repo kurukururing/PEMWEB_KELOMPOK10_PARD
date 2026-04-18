@@ -113,6 +113,26 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>body { font-family: 'Nunito', sans-serif; }</style>
 </head>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          primary: {
+            light: '#fde047',
+            DEFAULT: '#eab308', // Kuning
+            dark: '#a16207',
+          },
+          secondary: {
+            light: '#f87171',
+            DEFAULT: '#dc2626', // Merah
+            dark: '#991b1b',
+          },
+        }
+      }
+    }
+  }
+</script>
 <body class="bg-[#F8F9FE] text-slate-700 flex min-h-screen">
 
     <div class="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-violet-600 via-fuchsia-600 to-pink-500 relative overflow-hidden items-center justify-center p-12">
@@ -151,7 +171,7 @@
                     </div>
                     <input name="password" type="password" required class="w-full px-5 py-3.5 rounded-xl border border-slate-200 bg-slate-50 outline-none focus:border-violet-500 transition-all" placeholder="••••••••">
                 </div>
-                <button name="login_button" type="submit" class="w-full bg-secondary text-white font-bold py-3.5 rounded-xl shadow-lg hover:bg-violet-700 transition-all">Masuk</button>
+                <button name="login_button" type="submit" class="w-full bg-primary text-white font-bold py-3.5 rounded-xl shadow-lg hover:bg-violet-700 transition-all">Masuk</button>
                 <p class="text-center text-slate-500 text-sm mt-6">Belum punya akun? <a href="#signup" onclick="toggleForm('signup')" class="text-fuchsia-600 font-bold hover:underline">Daftar sekarang</a></p>
             </form>
 

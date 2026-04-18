@@ -43,6 +43,26 @@
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
     </style>
 </head>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          primary: {
+            light: '#fde047',
+            DEFAULT: '#eab308', // Kuning
+            dark: '#a16207',
+          },
+          secondary: {
+            light: '#f87171',
+            DEFAULT: '#dc2626', // Merah
+            dark: '#991b1b',
+          },
+        }
+      }
+    }
+  }
+</script>
 
 <body class="text-slate-700 h-screen flex overflow-hidden">
 

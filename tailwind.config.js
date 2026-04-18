@@ -1,23 +1,21 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  // Menggunakan ** untuk semua folder dan * untuk semua file dengan ekstensi tertentu
   content: [
-    "./*.php",
-    "./latihan/*.php",
+    "./**/*.{php,html,js}" 
   ],
   theme: {
     extend: {
       colors: {
-        // Tema Yellow
         primary: {
-          light: '#fde047',   // Yellow 300
-          DEFAULT: '#eab308', // Yellow 500
-          dark: '#a16207',    // Yellow 700
+          light: '#fde047',   
+          DEFAULT: '#eab308', 
+          dark: '#a16207',    
         },
-        // Tema Red
         secondary: {
-          light: '#f87171',   // Red 400
-          DEFAULT: '#dc2626', // Red 600
-          dark: '#991b1b',    // Red 800
+          light: '#f87171',   
+          DEFAULT: '#dc2626', 
+          dark: '#991b1b',    
         },
       }
     },
