@@ -65,7 +65,7 @@
                 <div class="hidden md:flex items-center space-x-4">
                     <a href="./php/akun.php#signup" class="text-slate-500 hover:text-violet-600 font-semibold 
                         transition-colors">Daftar</a>
-                    <a href="./php/akun.php#login" class="bg-primary text-white px-6 py-2.5 rounded-full  
+                    <a href="./php/akun.php#login" class="bg-primary-dark text-white px-6 py-2.5 rounded-full  
                         hover:bg-violet-700 transition-all font-bold shadow-lg shadow-violet-200">Masuk</a>
                 </div>
 
@@ -108,7 +108,7 @@
                 </p>
                 
                 <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                    <a href="#features" class="bg-primary text-white font-bold py-4 px-8 rounded-full shadow-lg 
+                    <a href="#features" class="bg-violet-600 text-white font-bold py-4 px-8 rounded-full shadow-lg 
                         shadow-violet-200 hover:shadow-xl hover:-translate-y-1 transition transform w-full sm:w-auto text-center text-lg">
                         Mulai Bermain 🚀
                     </a>
