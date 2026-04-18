@@ -151,7 +151,7 @@
                     </div>
                     <input name="password" type="password" required class="w-full px-5 py-3.5 rounded-xl border border-slate-200 bg-slate-50 outline-none focus:border-violet-500 transition-all" placeholder="••••••••">
                 </div>
-                <button name="login_button" type="submit" class="w-full bg-violet-600 text-white font-bold py-3.5 rounded-xl shadow-lg hover:bg-violet-700 transition-all">Masuk</button>
+                <button name="login_button" type="submit" class="w-full bg-secondary text-white font-bold py-3.5 rounded-xl shadow-lg hover:bg-violet-700 transition-all">Masuk</button>
                 <p class="text-center text-slate-500 text-sm mt-6">Belum punya akun? <a href="#signup" onclick="toggleForm('signup')" class="text-fuchsia-600 font-bold hover:underline">Daftar sekarang</a></p>
             </form>
 

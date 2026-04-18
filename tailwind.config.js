@@ -1,9 +1,16 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./index.php'],
+  content: [
+    "./*.php",            
+    "./latihan/*.php",    
+  ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: '#1d4ed8',
+        secondary: '#64748b',
+      }
+    },
   },
   plugins: [],
 }
-
