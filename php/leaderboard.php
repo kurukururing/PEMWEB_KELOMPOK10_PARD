@@ -1,9 +1,9 @@
 <?php
     include("./connect.php");
 
-    $query = "SELECT a.username, l.xp, l.skor, l.waktu_tercepat, l.waktu_main FROM leaderboard l
-            LEFT JOIN akun a ON l.id_akun = a.id_akun
-            ORDER BY l.skor DESC";
+    $query = "SELECT a.username, hsl.xp, hsl.skor, hsl.durasi, hsl.waktu_main FROM hasil_sesi_latihan hsl
+            LEFT JOIN akun a ON hsl.id_akun = a.id_akun
+            ORDER BY hsl.skor DESC";
     $result = mysqli_query($connection, $query);
 
     $dataFromDB = [];
@@ -116,8 +116,8 @@
                     </div>
                     <div class="flex gap-2">
                         <input type="text" id="pencarian" onkeyup="funSearch()" class="px-5 shadow-sm border-slate-400 rounded-xl font-semibold hover:bg-slate-50" placeholder="Cari ...">
-                        <button id="btncepat" onclick="ubahLeaderboard('waktu_tercepat')" class="px-5 py-2.5 bg-violet-600 text-white font-bold rounded-xl shadow-lg shadow-violet-200 transition-all hover:scale-105">Waktu Tercepat</button>
-                        <button id="btnmulai" onclick="ubahLeaderboard('waktu_dimulai')" class="px-5 py-2.5 bg-white border border-slate-200 text-slate-600 font-bold rounded-xl transition-all hover:bg-slate-50">Waktu Mulai</button>
+                        <button id="btncepat" onclick="ubahLeaderboard('durasi')" class="px-5 py-2.5 bg-violet-600 text-white font-bold rounded-xl shadow-lg shadow-violet-200 transition-all hover:scale-105">Waktu Tercepat</button>
+                        <button id="btnmulai" onclick="ubahLeaderboard('waktu_main')" class="px-5 py-2.5 bg-white border border-slate-200 text-slate-600 font-bold rounded-xl transition-all hover:bg-slate-50">Waktu Mulai</button>
                     </div>
                 </div>
 

@@ -23,7 +23,7 @@
 
     // Cek Akun
     $id_akun    = $_SESSION['id_akun'];
-    $sql        = "SELECT a.username, a.email, a.created_at,
+    $sql        = "SELECT a.username, a.email, a.created_at, a.is_active,
                     m.npm, m.nama_mahasiswa, m.jenis_kelamin, m.jenjang, m.tanggal_lahir, m.instansi
                 FROM akun a
                 JOIN mahasiswa m ON a.id_akun = m.id_akun
@@ -34,6 +34,7 @@
     $username       = $d['username'];
     $email          = $d['email'];
     $created_at     = date('d M Y', strtotime($d['created_at']));
+    $isActive       = $d['is_active'];
 
     $npm            = $d['npm'];
     $nama           = $d['nama_mahasiswa'];
@@ -70,8 +71,7 @@
 
     // Delete
     if(isset($_POST['delete_button'])) {
-        mysqli_query($connection, "DELETE FROM mahasiswa WHERE id_akun='$id_akun'");
-        mysqli_query($connection, "DELETE FROM akun WHERE id_akun='$id_akun'");
+        mysqli_query($connection, "UPDATE akun SET is_active = 0 WHERE id_akun='$id_akun'");
         session_destroy();
 
         header("location:./akun.php#login");

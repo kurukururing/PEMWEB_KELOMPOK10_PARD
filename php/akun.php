@@ -38,7 +38,7 @@
             $q      = mysqli_query($connection, $sql);
             $r      = mysqli_fetch_array($q);
 
-            if(!$r || $r['password'] != md5($password)) {
+            if(!$r || $r['password'] != md5($password) || $r['is_active'] == 0) {
                 $error .= "Akun tidak ditemukan atau password salah.";
             } else {
                 $_SESSION['email']      = $r['email'];
