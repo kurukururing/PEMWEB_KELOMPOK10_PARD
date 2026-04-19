@@ -1,6 +1,15 @@
 <?php
     include("./connect.php");
+    include("./akses.php"); // Memastikan session_start dan proteksi halaman aktif
 
+    // 1. Logika untuk mengambil nama pengguna yang login
+    $id_akun_login = $_SESSION['id_akun'];
+    $sql_user = "SELECT m.nama_mahasiswa FROM mahasiswa m WHERE m.id_akun = '$id_akun_login'";
+    $result_user = mysqli_query($connection, $sql_user);
+    $data_user = mysqli_fetch_assoc($result_user);
+    $nama_display = $data_user['nama_mahasiswa'] ?? 'Pelajar Baru';
+
+    // 2. Logika Leaderboard (Kode asli kamu)
     $query = "SELECT a.username, hsl.xp, hsl.skor, hsl.durasi, hsl.waktu_main FROM hasil_sesi_latihan hsl
             LEFT JOIN akun a ON hsl.id_akun = a.id_akun
             ORDER BY hsl.skor DESC";
@@ -33,26 +42,6 @@
         ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     </style>
 </head>
-<script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        colors: {
-          primary: {
-            light: '#fde047',
-            DEFAULT: '#eab308', // Kuning
-            dark: '#a16207',
-          },
-          secondary: {
-            light: '#f87171',
-            DEFAULT: '#dc2626', // Merah
-            dark: '#991b1b',
-          },
-        }
-      }
-    }
-  }
-</script>
 <body class="text-slate-700 h-screen flex overflow-hidden">
 
     <aside class="hidden md:flex flex-col w-72 bg-white border-r border-slate-100 h-full shrink-0">
@@ -99,8 +88,8 @@
             <div class="flex items-center gap-4">
                 <a href="./profil.php">
                     <div class="flex items-center gap-3 cursor-pointer p-1.5 pr-4 bg-slate-50 hover:bg-slate-100 rounded-full border border-slate-200 transition-colors">
-                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=PelajarBaru&backgroundColor=c0aede" alt="Profile" class="w-9 h-9 rounded-full shadow-sm bg-white">
-                        <span class="font-bold text-sm hidden md:block">Pelajar Baru</span>
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=<?= $nama_display ?>&backgroundColor=c0aede" alt="Profile" class="w-9 h-9 rounded-full shadow-sm bg-white">
+                        <span class="font-bold text-sm hidden md:block"><?= $nama_display ?></span>
                     </div>
                 </a>
             </div>
@@ -126,17 +115,16 @@
                         <table id="tabel" class="w-full text-left border-collapse">
                             <thead>
                                 <tr class="bg-slate-50 border-b border-slate-100">
-                                    <th onclick="urutkanTabel(0)" class="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest w-16 text-center">#</th>
-                                    <th onclick="urutkanTabel(1)" class="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest">Player</th>
-                                    <th onclick="urutkanTabel(2)" class="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest text-right">XP</th>
-                                    <th onclick="urutkanTabel(3)" class="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest text-right">Skor</th>
-                                    <th onclick="urutkanTabel(4)" class="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest text-right">Waktu Mulai</th>
-                                    <th onclick="urutkanTabel(5)" class="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest text-right">Waktu Tercepat</th>
+                                    <th class="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest w-16 text-center">#</th>
+                                    <th class="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest">Player</th>
+                                    <th class="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest text-right">XP</th>
+                                    <th class="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest text-right">Skor</th>
+                                    <th class="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest text-right">Waktu Mulai</th>
+                                    <th class="px-6 py-4 text-xs font-black text-slate-400 uppercase tracking-widest text-right">Durasi</th>
                                 </tr>
                             </thead>
                             <tbody id="leaderboard" class="divide-y divide-slate-50">
-                                <!-- Js -->
-                            </tbody>
+                                </tbody>
                         </table>
                     </div>
                 </div>
@@ -148,9 +136,9 @@
                     <div class="flex items-center justify-between p-5 bg-violet-50 rounded-2xl border-2 border-violet-100 soft-shadow">
                         <div class="flex items-center gap-4">
                             <span class="font-black text-violet-400 w-6 text-center">-</span>
-                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=PelajarBaru" class="w-10 h-10 rounded-full border-2 border-white bg-white shadow-sm">
+                            <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=<?= $nama_display ?>" class="w-10 h-10 rounded-full border-2 border-white bg-white shadow-sm">
                             <div>
-                                <h4 class="font-extrabold text-violet-900 leading-tight">Pelajar Baru</h4>
+                                <h4 class="font-extrabold text-violet-900 leading-tight"><?= $nama_display ?></h4>
                                 <p class="text-[11px] text-violet-500 font-bold uppercase tracking-wider">Pemula Lv. 1</p>
                             </div>
                         </div>
@@ -171,11 +159,9 @@
         </div>
     </main>
 
+    <script>
+        const data_dari_DB = <?php echo $jsonLeaderboard; ?>;
+    </script>
+    <script src="../js/leaderboard.js"></script>
 </body>
 </html>
-
-<script>
-    const data_dari_DB = <?php echo $jsonLeaderboard; ?>;
-</script>
-
-<script src="../js/leaderboard.js"></script>

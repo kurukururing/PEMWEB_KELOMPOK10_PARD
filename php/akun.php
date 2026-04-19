@@ -86,7 +86,8 @@
 
         if(empty($error)) {
             $password_hash = md5($password);
-            $sql1       = "INSERT INTO akun (username, email, password, user_role) VALUES ('$username', '$email', '$password_hash', '$role')";
+            // Perubahan di sini: Menambahkan kolom is_active dan nilai 1
+            $sql1       = "INSERT INTO akun (username, email, password, user_role, is_active) VALUES ('$username', '$email', '$password_hash', '$role', 1)";
             mysqli_query($connection, $sql1);
             $id_akun    = mysqli_insert_id($connection);
 
@@ -120,12 +121,12 @@
         colors: {
           primary: {
             light: '#fde047',
-            DEFAULT: '#eab308', // Kuning
+            DEFAULT: '#eab308',
             dark: '#a16207',
           },
           secondary: {
             light: '#f87171',
-            DEFAULT: '#dc2626', // Merah
+            DEFAULT: '#dc2626',
             dark: '#991b1b',
           },
         }
@@ -233,7 +234,6 @@
             if (window.location.hash === '#signup') {
                 toggleForm('signup');
             }
-            // Tampilkan modal jika ada error dari PHP
             <?php if (!empty($error)): ?>
                 const modal = document.getElementById('errorModal');
                 modal.classList.remove('hidden');
