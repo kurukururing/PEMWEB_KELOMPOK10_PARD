@@ -7,6 +7,15 @@
         echo "Kamu tidak punya akses";
         exit();
     }
+
+    // Ambil Data Pengguna yang Login
+    $id_akun = $_SESSION['id_akun'];
+    $sql     = "SELECT m.nama_mahasiswa FROM mahasiswa m WHERE m.id_akun = '$id_akun'";
+    $q       = mysqli_query($connection, $sql);
+    $d       = mysqli_fetch_assoc($q);
+    
+    // Simpan nama ke variabel (Gunakan fallback jika data tidak ditemukan)
+    $nama    = $d['nama_mahasiswa'] ?? 'Pelajar Baru';
 ?>
 
 <!DOCTYPE html>
@@ -49,10 +58,6 @@
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"></path></svg>
                 Arena Latihan
             </a>
-            <!-- <a href="#" class="flex items-center gap-4 px-4 py-3 text-slate-500 hover:bg-slate-50 hover:text-violet-600 rounded-2xl font-bold transition-colors">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
-                Statistikku
-            </a> -->
         </nav>
 
         <div class="p-6 border-t border-slate-100">
@@ -85,10 +90,9 @@
                 </button>
                 <a href="./profil.php">
                     <div class="flex items-center gap-3 cursor-pointer p-1.5 pr-4 bg-slate-50 hover:bg-slate-100 rounded-full border border-slate-200 transition-colors">
-                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=PelajarBaru&backgroundColor=c0aede" alt="Profile" class="w-9 h-9 rounded-full shadow-sm bg-white">
-                        <span class="font-bold text-sm hidden md:block">Pelajar Baru</span>
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=<?= $nama ?>&backgroundColor=c0aede" alt="Profile" class="w-9 h-9 rounded-full shadow-sm bg-white">
+                        <span class="font-bold text-sm hidden md:block"><?= $nama ?></span>
                     </div>
-                </a>
                 </a>
             </div>
         </header>
@@ -102,7 +106,7 @@
                     
                     <div class="relative z-10 max-w-2xl">
                         <span class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-lg text-sm font-bold tracking-wide mb-4">LANGKAH PERTAMA 🚀</span>
-                        <h2 class="text-3xl md:text-4xl font-extrabold mb-4 leading-tight">Halo, Pelajar Baru! Siap mengasah logikamu hari ini?</h2>
+                        <h2 class="text-3xl md:text-4xl font-extrabold mb-4 leading-tight">Halo, <?= $nama ?>! Siap mengasah logikamu hari ini?</h2>
                         <p class="text-white/80 font-medium text-lg leading-relaxed mb-8">Perjalananmu menjadi pemikir kritis yang mandiri dimulai di sini. Selesaikan misi pertamamu untuk mendapatkan XP dan naik level.</p>
                         <button class="bg-white text-violet-600 font-extrabold py-3.5 px-8 rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition transform flex items-center gap-2">
                             Mulai Latihan Dasar
@@ -114,80 +118,7 @@
                     </div>
                 </div>
 
-                <div>
-                    <h3 class="text-xl font-extrabold text-slate-800 mb-4">Statistik Kamu</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div class="bg-white p-6 rounded-3xl border border-slate-100 soft-shadow flex items-center gap-5">
-                            <div class="w-14 h-14 rounded-2xl bg-orange-100 text-orange-500 flex items-center justify-center text-2xl font-bold">🏆</div>
-                            <div>
-                                <p class="text-slate-400 text-sm font-bold uppercase tracking-wide">Level Saat Ini</p>
-                                <h4 class="text-2xl font-extrabold text-slate-800">Pemula <span class="text-lg text-slate-500 font-medium">(Lv. 1)</span></h4>
-                            </div>
-                        </div>
-                        <div class="bg-white p-6 rounded-3xl border border-slate-100 soft-shadow flex items-center gap-5">
-                            <div class="w-14 h-14 rounded-2xl bg-fuchsia-100 text-fuchsia-500 flex items-center justify-center text-2xl font-bold">⭐</div>
-                            <div>
-                                <p class="text-slate-400 text-sm font-bold uppercase tracking-wide">Total XP</p>
-                                <h4 class="text-2xl font-extrabold text-slate-800">0 <span class="text-sm font-semibold text-fuchsia-500 bg-fuchsia-50 px-2 py-0.5 rounded-lg ml-1">Mulai kumpulkan!</span></h4>
-                            </div>
-                        </div>
-                        <div class="bg-white p-6 rounded-3xl border border-slate-100 soft-shadow flex items-center gap-5">
-                            <div class="w-14 h-14 rounded-2xl bg-blue-100 text-blue-500 flex items-center justify-center text-2xl font-bold">🔥</div>
-                            <div>
-                                <p class="text-slate-400 text-sm font-bold uppercase tracking-wide">Streak Belajar</p>
-                                <h4 class="text-2xl font-extrabold text-slate-800">0 Hari</h4>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-
-                <div>
-                    <div class="flex justify-between items-end mb-6">
-                        <div>
-                            <h3 class="text-xl font-extrabold text-slate-800">Rekomendasi Latihan Pertamamu</h3>
-                            <p class="text-slate-500 font-medium">Buka kunci kemampuan analisismu dengan modul dasar ini.</p>
-                        </div>
-                        <a href="#" class="hidden md:inline-block text-violet-600 font-bold hover:underline">Lihat Semua</a>
-                    </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="bg-white p-1 rounded-3xl border border-slate-100 soft-shadow group hover:border-violet-200 transition-colors">
-                            <div class="bg-slate-50 rounded-[1.5rem] p-6 h-full flex flex-col justify-between">
-                                <div>
-                                    <div class="flex justify-between items-start mb-4">
-                                        <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center text-2xl">🧩</div>
-                                        <span class="bg-white text-xs font-bold text-slate-500 px-3 py-1 rounded-full border border-slate-200">Dasar</span>
-                                    </div>
-                                    <h4 class="text-lg font-extrabold text-slate-800 mb-2">Argument Builder 101</h4>
-                                    <p class="text-slate-500 text-sm font-medium leading-relaxed mb-6">Pahami struktur dasar premis dan kesimpulan. Susun argumen yang valid dari blok-blok yang diacak.</p>
-                                </div>
-                                <button onclick="window.location.href='./latihan/builder.php';"
-                                    class="w-full bg-white border-2 border-slate-200 text-slate-700 font-bold py-3 rounded-xl 
-                                        group-hover:bg-violet-600 group-hover:border-violet-600 group-hover:text-white transition-all">
-                                    Mulai Tantangan
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="bg-white p-1 rounded-3xl border border-slate-100 soft-shadow group hover:border-fuchsia-200 transition-colors">
-                            <div class="bg-slate-50 rounded-[1.5rem] p-6 h-full flex flex-col justify-between">
-                                <div>
-                                    <div class="flex justify-between items-start mb-4">
-                                        <div class="w-12 h-12 bg-fuchsia-100 text-fuchsia-600 rounded-xl flex items-center justify-center text-2xl">🕵️</div>
-                                        <span class="bg-white text-xs font-bold text-slate-500 px-3 py-1 rounded-full border border-slate-200">Dasar</span>
-                                    </div>
-                                    <h4 class="text-lg font-extrabold text-slate-800 mb-2">Detektif Fallacy</h4>
-                                    <p class="text-slate-500 text-sm font-medium leading-relaxed mb-6">Belajar mengenali kecacatan logika (Logical Fallacy) paling umum seperti Ad Hominem di kehidupan sehari-hari.</p>
-                                </div>
-                                <button class="w-full bg-white border-2 border-slate-200 text-slate-700 font-bold py-3 rounded-xl group-hover:bg-fuchsia-500 group-hover:border-fuchsia-500 group-hover:text-white transition-all">
-                                    Mulai Tantangan
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
         </div>
     </main>
 
