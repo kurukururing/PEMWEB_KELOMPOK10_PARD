@@ -8,15 +8,22 @@
         exit();
     }
 
-    // Latihan
-    $sql1     = "SELECT * FROM latihan ORDER BY RAND() LIMIT 1";
+    // 1. Ambil satu soal secara acak (Tabel: soal)
+    // Kita ambil soal yang id_latihan-nya adalah 1 (Argument Builder)
+    $sql1     = "SELECT * FROM soal WHERE id_latihan = 1 ORDER BY RAND() LIMIT 1";
     $q1       = mysqli_query($connection, $sql1);
     $d        = mysqli_fetch_assoc($q1);
 
-    // Soal
-    $id       = $d['id_latihan'];
-    $sql2     = "SELECT * FROM soal_item WHERE id_latihan = $id ORDER BY RAND()";
+    // 2. Ambil item pendukung soal tersebut (Tabel: soal_item_builder)
+    $id_soal  = $d['id_soal'];
+    $sql2     = "SELECT * FROM soal_item_builder WHERE id_soal = $id_soal ORDER BY RAND()";
     $q2       = mysqli_query($connection, $sql2);
+
+    // Tambahan: Ambil nama user untuk header
+    $id_akun  = $_SESSION['id_akun'];
+    $q_user   = mysqli_query($connection, "SELECT nama_mahasiswa FROM mahasiswa WHERE id_akun = '$id_akun'");
+    $d_user   = mysqli_fetch_assoc($q_user);
+    $nama_user = $d_user['nama_mahasiswa'] ?? 'Pelajar Baru';
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +31,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard | THINKARA</title>
+    <title>Argument Builder | THINKARA</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -43,26 +50,6 @@
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
     </style>
 </head>
-<script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        colors: {
-          primary: {
-            light: '#fde047',
-            DEFAULT: '#eab308', // Kuning
-            dark: '#a16207',
-          },
-          secondary: {
-            light: '#f87171',
-            DEFAULT: '#dc2626', // Merah
-            dark: '#991b1b',
-          },
-        }
-      }
-    }
-  }
-</script>
 
 <body class="text-slate-700 h-screen flex overflow-hidden">
 
@@ -91,12 +78,18 @@
             <div class="hidden md:block">
                 <h1 class="text-xl font-extrabold text-slate-800 tracking-tight">Argument Builder</h1>
             </div>
+            <div class="flex items-center gap-3">
+                <div class="flex items-center gap-3 p-1.5 pr-4 bg-slate-50 rounded-full border border-slate-200">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=<?= $nama_user ?>" alt="Profile" class="w-9 h-9 rounded-full shadow-sm bg-white">
+                    <span class="font-bold text-sm hidden md:block"><?= $nama_user ?></span>
+                </div>
+            </div>
         </header>
 
         <div class="flex-1 overflow-y-auto p-6 md:p-10 pb-24">
             <div class="max-w-6xl mx-auto space-y-8">
                 <div class="bg-gradient-to-r from-violet-600 to-indigo-600 rounded-[2rem] p-8 text-white shadow-xl mb-10">
-                    <h3 class="text-3xl font-extrabold mb-2">Topik: <?= $d['judul'] ?></h3>
+                    <h3 class="text-3xl font-extrabold mb-2">Topik: <?= $d['topik'] ?></h3>
                     <p class="text-violet-100 opacity-90">Drag item ke kotak kiri. <b>Klik item di kotak kiri</b> untuk mengembalikannya.</p>
                 </div>
 
@@ -124,7 +117,7 @@
                     <div class="lg:col-span-7 space-y-6">
                         <div class="bg-white p-8 rounded-[2rem] border border-slate-100 soft-shadow">
                             <h4 class="text-lg font-extrabold text-slate-800 mb-4 italic leading-relaxed border-l-4 border-fuchsia-200 pl-4">
-                                "<?= $d['isi'] ?>"
+                                "<?= $d['isi_soal'] ?>"
                             </h4>
                         </div>
 
@@ -137,7 +130,7 @@
                                          data-type="<?= $item['tipe'] ?>"
                                          data-correct="<?= $item['is_correct'] ?>"
                                          onclick="returnToPool(this)">
-                                        <?= $item['teks'] ?>
+                                        <?= $item['isi_item'] ?>
                                     </div>
                                 <?php } ?>
                             </div>
@@ -145,6 +138,7 @@
 
                         <div class="flex items-center gap-4 pt-4">
                             <form id="gameForm" method="POST" action="submit_score.php" class="flex-1">
+                                <input type="hidden" name="id_soal" value="<?= $d['id_soal'] ?>">
                                 <input type="hidden" name="waktu" id="waktuInput">
                                 <input type="hidden" name="skor" id="skorInput">
                                 <button type="button" onclick="submitGame()" class="w-full bg-violet-600 hover:bg-violet-700 text-white font-bold py-4 rounded-2xl shadow-lg transition-all">
@@ -162,7 +156,6 @@
         let dragged = null;
         const poolContainer = document.getElementById('pool-container');
 
-        // Fungsi Klik untuk Mengembalikan ke Pool
         function returnToPool(item) {
             if (item.parentElement.classList.contains('dropzone')) {
                 const zone = item.parentElement;
@@ -191,7 +184,6 @@
             });
         });
 
-        // Setup Dropzones dan Pool
         [...document.querySelectorAll('.dropzone'), poolContainer].forEach(zone => {
             zone.addEventListener('dragover', e => {
                 e.preventDefault();
@@ -228,9 +220,10 @@
             let score = 0;
             document.querySelectorAll('.dropzone').forEach(zone => {
                 const item = zone.querySelector('.drag-item');
+                // Logika penilaian diperbaiki: cek tipe zona vs tipe item & is_correct
                 if (item && item.dataset.type === zone.dataset.type && item.dataset.correct == "1") {
                     item.style.background = "#dcfce7";
-                    score += 10;
+                    score += 25; // 4 item benar = 100 skor
                 } else if (item) {
                     item.style.background = "#fee2e2";
                 }

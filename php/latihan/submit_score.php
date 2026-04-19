@@ -1,49 +1,40 @@
 <?php
-  include("../connect.php");
-  include("../akses.php");
+    include("../connect.php");
+    include("../akses.php"); // Memastikan session_start() sudah ada di sini
 
-  $id_akun = $_SESSION['id_akun'];
-  $skor = (int)$_POST['skor'];
-  $waktu = (int)$_POST['waktu'];
-  $timeFormatted = gmdate("H:i:s", $waktu);
+    // Pastikan data POST ada
+    if (isset($_POST['skor']) && isset($_POST['waktu'])) {
+        
+        $id_akun = $_SESSION['id_akun'];
+        $skor    = (int)$_POST['skor'];
+        $durasi  = (int)$_POST['waktu']; // Dalam detik (integer)
+        
+        // id_latihan 1 adalah untuk Argument Builder (sesuai gambar tabel latihan kamu)
+        $id_latihan = 1; 
+        
+        // Rumus XP (Skor x 2)
+        $xp = $skor * 2;
 
-  $cek = mysqli_query($connection, "SELECT * FROM leaderboard WHERE id_akun = $id_akun");
+        // Waktu main menggunakan waktu sekarang (WIB/Server time)
+        // Kolom di DB kamu adalah 'waktu_main' (datetime)
+        $waktu_main = date("Y-m-d H:i:s");
 
-  if (mysqli_num_rows($cek) > 0) {
+        // LOGIC: Karena tabel 'hasil_sesi_latihan' adalah tabel riwayat, 
+        // kita langsung melakukan INSERT setiap kali user selesai latihan.
+        $query = "INSERT INTO hasil_sesi_latihan (id_akun, id_latihan, xp, skor, waktu_main, durasi) 
+                  VALUES ($id_akun, $id_latihan, $xp, $skor, '$waktu_main', $durasi)";
 
-      $data = mysqli_fetch_assoc($cek);
+        if (mysqli_query($connection, $query)) {
+            // Jika berhasil, arahkan ke halaman leaderboard
+            header("Location: ../leaderboard.php");
+            exit();
+        } else {
+            echo "Error: " . mysqli_error($connection);
+        }
 
-      $newSkor = $data['skor'] + $skor;
-      $newXp   = $data['xp'] + ($skor * 2); // rumus
-
-      // waktu tercepat
-      $oldTime = $data['waktu_tercepat'];
-
-      if ($oldTime == "00:00:00" || $timeFormatted < $oldTime) {
-          $bestTime = $timeFormatted;
-      } else {
-          $bestTime = $oldTime;
-      }
-
-      mysqli_query($connection, "
-          UPDATE leaderboard SET
-              skor = $newSkor,
-              xp = $newXp,
-              waktu_tercepat = '$bestTime'
-          WHERE id_akun = $id_akun
-      ");
-
-  } else {
-
-      // insert first
-      $xp = $skor * 2;
-
-      mysqli_query($connection, "
-          INSERT INTO leaderboard (id_akun, skor, xp, waktu_tercepat)
-          VALUES ($id_akun, $skor, $xp, '$timeFormatted')
-      ");
-  }
-
-  header("Location: ../leaderboard.php");
-  exit();
+    } else {
+        // Jika diakses tanpa data POST, kembalikan ke dashboard
+        header("Location: ../dashboard.php");
+        exit();
+    }
 ?>
