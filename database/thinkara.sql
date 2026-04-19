@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 18, 2026 at 02:33 PM
+-- Generation Time: Apr 19, 2026 at 05:55 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -42,9 +42,9 @@ CREATE TABLE `akun` (
 --
 
 INSERT INTO `akun` (`id_akun`, `username`, `email`, `password`, `user_role`, `created_at`, `is_active`) VALUES
-(1, '1', '1@1', 'c4ca4238a0b923820dcc509a6f75849b', 'mahasiswa', '2026-04-16 07:50:35', 1),
-(3, '2', '2@2', 'c81e728d9d4c2f636f067f89cc14862c', 'mahasiswa', '2026-04-16 19:59:33', 1),
-(4, '3', '3@3', 'eccbc87e4b5ce2fe28308fd9f2a7baf3', 'mahasiswa', '2026-04-16 19:59:57', 1);
+(1, 'Axel', '1@1', 'c4ca4238a0b923820dcc509a6f75849b', 'mahasiswa', '2026-04-16 07:50:35', 0),
+(3, 'Budiman', '2@2', 'c81e728d9d4c2f636f067f89cc14862c', 'mahasiswa', '2026-04-16 19:59:33', 1),
+(4, 'Ayu', '3@3', 'eccbc87e4b5ce2fe28308fd9f2a7baf3', 'mahasiswa', '2026-04-16 19:59:57', 1);
 
 -- --------------------------------------------------------
 
@@ -58,9 +58,17 @@ CREATE TABLE `hasil_sesi_latihan` (
   `id_latihan` int(11) NOT NULL,
   `xp` int(25) NOT NULL,
   `skor` int(25) NOT NULL,
-  `waktu_dimulai` datetime NOT NULL,
+  `waktu_main` datetime NOT NULL,
   `durasi` int(25) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `hasil_sesi_latihan`
+--
+
+INSERT INTO `hasil_sesi_latihan` (`id_hasil_latihan`, `id_akun`, `id_latihan`, `xp`, `skor`, `waktu_main`, `durasi`) VALUES
+(1, 1, 1, 160, 80, '2026-04-18 21:05:58', 7),
+(2, 3, 1, 190, 100, '2026-04-18 21:06:51', 13);
 
 -- --------------------------------------------------------
 
@@ -106,7 +114,7 @@ CREATE TABLE `mahasiswa` (
 
 INSERT INTO `mahasiswa` (`id_siswa`, `id_akun`, `npm`, `nama_mahasiswa`, `jenis_kelamin`, `jenjang`, `tanggal_lahir`, `instansi`) VALUES
 (1, 1, '1', '1', 'Laki-laki', 'sifo', '2026-04-16', '1'),
-(3, 3, '2', '2', NULL, NULL, NULL, NULL),
+(3, 3, '2', '2', '', 'sifo', '0000-00-00', ''),
 (4, 4, '3', '3', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
@@ -260,7 +268,7 @@ ALTER TABLE `akun`
 -- AUTO_INCREMENT for table `hasil_sesi_latihan`
 --
 ALTER TABLE `hasil_sesi_latihan`
-  MODIFY `id_hasil_latihan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_hasil_latihan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `latihan`
